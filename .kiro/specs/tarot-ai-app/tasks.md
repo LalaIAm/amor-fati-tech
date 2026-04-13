@@ -63,35 +63,60 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
 - [ ] 4. Implement Redux store slices
   - [ ] 4.1 Implement `src/store/authSlice.js`
     - `signIn`, `signUp`, `signOut` async thunks calling Supabase Auth
+    - `signInWithOAuth` async thunk calling `supabase.auth.signInWithOAuth` for third-party providers
     - `setSession` and `clearSession` synchronous reducers
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
-    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ] 4.2 Implement `src/store/readingSlice.js`
+  - [ ]\* 4.2 Write property test for auth round-trip (Property 5)
+    - **Property 5: Auth round-trip**
+    - **Validates: Requirements 1.2, 1.4**
+    - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
+    - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
+
+  - [ ]\* 4.3 Write property test for auth error conditions (Property 6)
+    - **Property 6: Auth error conditions**
+    - **Validates: Requirements 1.3, 1.5**
+    - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
+    - Duplicate email registration SHALL set `authSlice.status` to `'failed'`; invalid credentials SHALL NOT set a session
+
+  - [ ] 4.4 Implement `src/store/readingSlice.js`
     - `setSpread`, `setIntention` (normalize whitespace-only to `""`), `setDrawnCards`, `appendInterpretation`, `resetReading` reducers
-    - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk
+    - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk; passes `previousInterpretationIds` to enforce distinct interpretations
     - `saveReading` async thunk: writes `journal_entries` + `drawn_cards` rows to Supabase
     - Status transitions: `idle → drawing → interpreting → saving → done | error`
-    - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5_
+    - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ]\* 4.3 Write property test for whitespace intention normalization (Property 17)
+  - [ ]\* 4.5 Write property test for whitespace intention normalization (Property 17)
     - **Property 17: Whitespace intention treated as absent**
     - **Validates: Requirements 4.1, 4.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
     - Generate arbitrary whitespace-only strings; assert `readingSlice.intention` is normalized to `""`
 
-  - [ ] 4.4 Implement `src/store/journalSlice.js`
+  - [ ] 4.6 Implement `src/store/journalSlice.js`
     - `fetchJournalEntries`, `fetchJournalEntry`, `updateNotes`, `savePromptResponse`, `deleteJournalEntry` async thunks
     - `selectEntry` synchronous reducer
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [ ] 4.5 Implement `src/store/dashboardSlice.js`
+  - [ ]\* 4.7 Write property test for journal entry round-trip (Property 10)
+    - **Property 10: Journal entry round-trip**
+    - **Validates: Requirements 4.4, 6.1, 6.3**
+    - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
+    - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
+
+  - [ ]\* 4.8 Write property test for prompt response round-trip (Property 14)
+    - **Property 14: Prompt response round-trip**
+    - **Validates: Requirements 8.4**
+    - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`
+    - For any user response to a journaling prompt, saving then retrieving the entry SHALL return the same response text at the same prompt index in `journalSlice.selectedEntry.promptResponses`
+
+  - [ ] 4.9 Implement `src/store/dashboardSlice.js`
     - `fetchDashboard` async thunk: queries recent 3 entries, aggregates card frequencies (top 3), fetches latest pattern insight
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
 
-  - [ ]\* 4.6 Write property test for card frequency counts and top-3 display (Property 12)
+  - [ ]\* 4.10 Write property test for card frequency counts and top-3 display (Property 12)
     - **Property 12: Card frequency counts and top-3 display**
     - **Validates: Requirements 7.1, 7.2, 10.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
@@ -108,18 +133,25 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Add the three RLS policies from the design document
     - _Requirements: 9.1, 9.3_
 
-  - [ ] 6.2 Seed `spreads` table with the three built-in spread rows
+  - [ ]\* 6.2 Write property test for user data isolation (Property 15)
+    - **Property 15: User data isolation**
+    - **Validates: Requirements 9.3**
+    - Tag comment: `// Feature: tarot-ai-app, Property 15: User data isolation`
+    - For any two distinct authenticated users A and B, all queries in user A's session SHALL return zero rows belonging to user B; use Supabase local emulator with two test users
+
+  - [ ] 6.3 Seed `spreads` table with the three built-in spread rows
     - Create `supabase/seed.sql` inserting `single`, `three-card`, `celtic-cross` rows
     - _Requirements: 3.1_
 
 - [ ] 7. Implement Supabase Edge Function for AI interpretation
   - [ ] 7.1 Create `supabase/functions/interpret/index.js`
     - Validate the caller's JWT using Supabase Auth before processing
-    - Build the GPT-4o prompt including each card's name, orientation, position label/description, and intention (or general-reading instruction when intention is null/empty)
+    - Build the GPT-4o prompt including each card's name, orientation, position label/description, and intention (or general-reading instruction when intention is null/empty); enforce 500-char cap on intention
+    - Pass `previousInterpretationIds` in the prompt context to ensure distinct interpretations per Req 5.6
     - Call OpenAI Chat Completions API with streaming enabled
     - Stream response back to the client as newline-delimited JSON chunks
-    - Return `{ cardInterpretations, summaryInterpretation, journalingPrompts }` shape
-    - Handle OpenAI errors; return structured error response for timeout/failure
+    - Return `{ cardInterpretations, summaryInterpretation, journalingPrompts }` shape with exactly 3 prompts
+    - Handle OpenAI errors; return structured error response for timeout (>30s) / failure
     - _Requirements: 4.2, 4.3, 5.1, 5.2, 5.5, 5.6, 8.1, 9.2_
 
   - [ ]\* 7.2 Write property test for AI prompt construction (Property 7)
@@ -128,14 +160,27 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 7: AI prompt construction includes all required fields`
     - Generate arbitrary card/spread/intention combinations; assert prompt string contains card name, orientation, position label, position description, and intention or general-reading instruction
 
+  - [ ]\* 7.3 Write property test for interpretation word count (Property 8)
+    - **Property 8: Interpretation word count**
+    - **Validates: Requirements 5.2**
+    - Tag comment: `// Feature: tarot-ai-app, Property 8: Interpretation word count`
+    - For any card interpretation text returned by the AI engine or its mock, assert word count is between 100 and 400 inclusive
+
+  - [ ]\* 7.4 Write property test for AI response structure (Property 9)
+    - **Property 9: AI response structure**
+    - **Validates: Requirements 5.5, 8.1**
+    - Tag comment: `// Feature: tarot-ai-app, Property 9: AI response structure`
+    - For any completed reading, assert the AI response includes a non-empty `summaryInterpretation` and exactly 3 `journalingPrompts` strings, reflected in `readingSlice` state
+
 - [ ] 8. Implement authentication UI
   - [ ] 8.1 Create `src/components/AuthPage.jsx`
     - Login form (email + password) dispatching `signIn`
     - Registration form dispatching `signUp`
+    - OAuth button dispatching `signInWithOAuth` (e.g. Google) when third-party auth is enabled
     - Toggle between login and registration views
     - Display inline error messages from `authSlice.error` (duplicate email, invalid credentials)
     - Redirect to `/dashboard` on successful auth
-    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.7_
 
   - [ ] 8.2 Create `src/components/AuthProvider.jsx`
     - Subscribe to `supabase.auth.onAuthStateChange`
@@ -217,13 +262,18 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On blur: dispatch `savePromptResponse`
     - _Requirements: 8.2, 8.3, 8.4_
 
-  - [ ] 11.6 Create `src/pages/JournalEntryPage.jsx`
+  - [ ] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
+    - `CardGrid`: renders drawn cards in a grid layout with name, orientation badge, and position label; each card image has `alt` text with name and imageDescription
+    - `InterpretationList`: renders the per-card interpretation texts and the summary interpretation
+    - _Requirements: 2.5, 3.4, 5.5, 11.3_
+
+  - [ ] 11.7 Create `src/pages/JournalEntryPage.jsx`
     - Dispatch `fetchJournalEntry(id)` on mount
     - Compose `CardGrid`, `InterpretationList`, `JournalingPrompts`, `NotesEditor`
     - Show delete button with confirmation dialog; on confirm dispatch `deleteJournalEntry` then navigate to `/journal`
     - _Requirements: 6.3, 6.4, 6.5_
 
-  - [ ] 11.7 Create `src/pages/JournalPage.jsx`
+  - [ ] 11.8 Create `src/pages/JournalPage.jsx`
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 
@@ -233,27 +283,20 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Each entry shows date, spread type, intention; clicking navigates to `/journal/:id`
     - _Requirements: 10.2, 10.3_
 
-  - [ ]\* 12.2 Write property test for journal entry summary fields in dashboard (Property 13 — dashboard context)
-    - **Property 13: Journal entry summary fields (dashboard)**
-    - **Validates: Requirements 10.2**
-    - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`
-    - Generate arbitrary recent-entry data; render `RecentReadings`; assert date, spread name, and intention are displayed
-
-  - [ ] 12.3 Create `src/components/FrequentCards.jsx`
+  - [ ] 12.2 Create `src/components/FrequentCards.jsx`
     - Render top 3 cards from `dashboardSlice.frequentCards` with card name and draw count
     - Each card includes `alt` text with name and imageDescription
     - _Requirements: 7.2, 10.5_
 
-  - [ ] 12.4 Create `src/components/PatternInsight.jsx`
+  - [ ] 12.3 Create `src/components/PatternInsight.jsx`
     - Render `dashboardSlice.patternInsight` text when `totalReadings >= 5`
     - Hidden when fewer than 5 readings
     - _Requirements: 7.3, 10.4_
 
-  - [ ] 12.5 Create `src/pages/DashboardPage.jsx`
+  - [ ] 12.4 Create `src/pages/DashboardPage.jsx`
     - Dispatch `fetchDashboard` on mount
-    - Compose `RecentReadings`, `FrequentCards`, `PatternInsight`, `StartReadingCTA`
+    - Compose `RecentReadings`, `FrequentCards`, `PatternInsight`, and a "Start a New Reading" button navigating to `/reading/new`
     - Show empty-state prompt when `recentEntries` is empty
-    - Provide clearly labeled "Start a New Reading" button navigating to `/reading/new`
     - _Requirements: 10.1, 10.6, 10.7_
 
 - [ ] 13. Implement routing and app shell
@@ -263,24 +306,30 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Add a minimal nav bar with links to Dashboard, Journal, and a logout button dispatching `signOut`
   - _Requirements: 1.6, 10.1_
 
-- [ ] 14. Implement accessibility and responsive layout
-  - [ ] 14.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
+- [ ] 14. Implement account deletion
+  - Add a "Delete Account" action in user settings or profile area
+  - On confirm: call Supabase to delete the auth user, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via `ON DELETE CASCADE`
+  - Dispatch `clearSession` and redirect to `/login` after deletion
+  - _Requirements: 9.4_
+
+- [ ] 15. Implement accessibility and responsive layout
+  - [ ] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
     - Ensure all clickable non-button elements have `role`, `tabIndex`, and `onKeyDown` handlers
     - _Requirements: 11.2_
 
-  - [ ] 14.2 Add `prefers-color-scheme` dark/light mode support
+  - [ ] 15.2 Add `prefers-color-scheme` dark/light mode support
     - Use CSS custom properties for theme tokens; apply `@media (prefers-color-scheme: dark)` overrides
     - _Requirements: 11.5_
 
-  - [ ] 14.3 Add responsive CSS ensuring layout works from 320px to 2560px
+  - [ ] 15.3 Add responsive CSS ensuring layout works from 320px to 2560px
     - Use CSS Grid/Flexbox; test breakpoints at 320px, 768px, 1280px, 2560px
     - _Requirements: 11.1_
 
-  - [ ] 14.4 Add `prefers-reduced-motion` media query to disable card animations
+  - [ ] 15.4 Add `prefers-reduced-motion` media query to disable card animations
     - Wrap all CSS animation/transition rules with `@media (prefers-reduced-motion: no-preference)`
     - _Requirements: 11.4_
 
-- [ ] 15. Final checkpoint — Ensure all tests pass
+- [ ] 16. Final checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
@@ -291,3 +340,4 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
 - Property tests (fast-check) validate universal correctness properties; unit tests validate specific examples and edge cases
 - The Edge Function keeps the OpenAI API key server-side; never expose it to the client
 - RLS policies enforce data isolation at the database level — no application-layer filtering needed
+- All 17 correctness properties from the design document are covered by property test sub-tasks
