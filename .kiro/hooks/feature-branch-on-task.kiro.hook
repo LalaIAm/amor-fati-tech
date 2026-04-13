@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Create Feature Branch on Task Start",
+  "description": "Automatically creates a new git feature branch whenever a spec task begins implementation, ensuring each major feature has its own branch.",
+  "version": "1",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Before this task begins, create a new git feature branch named after the feature being implemented. Read the spec config at .kiro/specs/*/.config.kiro to get the feature name, then run: git checkout -b feature/<feature-name> 2>/dev/null || echo 'Branch already exists'. Use the kebab-case feature name from the spec directory."
+  }
+}

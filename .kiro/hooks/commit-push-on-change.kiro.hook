@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Commit and Push on Major Code Change",
+  "description": "Automatically commits and pushes changes to the remote repository after every major code file edit",
+  "version": "1",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A code change was just made. Run `git diff --staged` and `git diff` to understand what changed, then generate a concise conventional commit message (e.g. feat:, fix:, refactor:, chore:) that accurately describes the change. Then run: git add -A && git commit -m \"<your generated message>\" && git push"
+  }
+}
