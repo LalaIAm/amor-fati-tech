@@ -34,7 +34,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - `assignReversed(card)` returns `true` with 50% probability
     - _Requirements: 2.3, 2.4_
 
-  - [~] 2.4 Write property test for shuffle permutation (Property 2)
+  - [-] 2.4 Write property test for shuffle permutation (Property 2)
     - **Property 2: Shuffle is a permutation**
     - **Validates: Requirements 2.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 2: Shuffle is a permutation`

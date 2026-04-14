@@ -1,7 +1,9 @@
 // Feature: tarot-ai-app, Property 1: Deck integrity
+// Feature: tarot-ai-app, Property 2: Shuffle is a permutation
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import deck from "./deck.js";
+import { shuffle } from "../engine/deck.js";
 
 describe("Property 1: Deck integrity", () => {
   it("contains exactly 78 cards", () => {
@@ -57,6 +59,42 @@ describe("Property 1: Deck integrity", () => {
             Array.isArray(c.reversedKeywords) &&
             c.reversedKeywords.length > 0,
         );
+      }),
+      { numRuns: 100 },
+    );
+  });
+});
+
+describe("Property 2: Shuffle is a permutation", () => {
+  it("returns the same number of cards as the input", () => {
+    fc.assert(
+      fc.property(fc.constant(deck), (d) => {
+        return shuffle(d).length === d.length;
+      }),
+      { numRuns: 100 },
+    );
+  });
+
+  it("contains exactly the same card ids as the input (no additions or omissions)", () => {
+    fc.assert(
+      fc.property(fc.constant(deck), (d) => {
+        const inputIds = d.map((c) => c.id).sort((a, b) => a - b);
+        const outputIds = shuffle(d)
+          .map((c) => c.id)
+          .sort((a, b) => a - b);
+        return JSON.stringify(inputIds) === JSON.stringify(outputIds);
+      }),
+      { numRuns: 100 },
+    );
+  });
+
+  it("does not mutate the input array", () => {
+    fc.assert(
+      fc.property(fc.constant(deck), (d) => {
+        const inputIdsBefore = d.map((c) => c.id);
+        shuffle(d);
+        const inputIdsAfter = d.map((c) => c.id);
+        return JSON.stringify(inputIdsBefore) === JSON.stringify(inputIdsAfter);
       }),
       { numRuns: 100 },
     );
