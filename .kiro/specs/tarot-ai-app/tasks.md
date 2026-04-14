@@ -68,13 +68,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [-] 4.2 Write property test for auth round-trip (Property 5)
+  - [x] 4.2 Write property test for auth round-trip (Property 5)
     - **Property 5: Auth round-trip**
     - **Validates: Requirements 1.2, 1.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
     - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
 
-  - [~] 4.3 Write property test for auth error conditions (Property 6)
+  - [-] 4.3 Write property test for auth error conditions (Property 6)
     - **Property 6: Auth error conditions**
     - **Validates: Requirements 1.3, 1.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`

@@ -1,4 +1,5 @@
 // Feature: tarot-ai-app, Property 5: Auth round-trip
+// Feature: tarot-ai-app, Property 6: Auth error conditions
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
@@ -31,6 +32,10 @@ function makeStore() {
     },
   });
 }
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 describe("Property 5: Auth round-trip", () => {
   /**
@@ -68,6 +73,68 @@ describe("Property 5: Auth round-trip", () => {
           expect(state.session).not.toBeNull();
           expect(state.user).not.toBeNull();
           expect(state.status).toBe("succeeded");
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+});
+
+describe("Property 6: Auth error conditions", () => {
+  /**
+   * Validates: Requirements 1.3, 1.5
+   *
+   * For any valid email/password, when signUp returns a duplicate-email error,
+   * dispatching signUp SHALL result in authSlice.status === 'failed' and
+   * authSlice.session === null.
+   */
+  it("duplicate email registration sets status to failed and session remains null", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.emailAddress(),
+        fc.string({ minLength: 8 }),
+        async (email, password) => {
+          supabase.auth.signUp.mockResolvedValue({
+            data: null,
+            error: { message: "User already registered" },
+          });
+
+          const store = makeStore();
+          await store.dispatch(signUp({ email, password }));
+
+          const state = store.getState().auth;
+          expect(state.status).toBe("failed");
+          expect(state.session).toBeNull();
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  /**
+   * Validates: Requirements 1.3, 1.5
+   *
+   * For any email/password combo where signInWithPassword returns an error,
+   * dispatching signIn SHALL result in authSlice.status === 'failed' and
+   * authSlice.session === null.
+   */
+  it("invalid credentials do not set a session and status is failed", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.emailAddress(),
+        fc.string({ minLength: 8 }),
+        async (email, password) => {
+          supabase.auth.signInWithPassword.mockResolvedValue({
+            data: null,
+            error: { message: "Invalid login credentials" },
+          });
+
+          const store = makeStore();
+          await store.dispatch(signIn({ email, password }));
+
+          const state = store.getState().auth;
+          expect(state.status).toBe("failed");
+          expect(state.session).toBeNull();
         },
       ),
       { numRuns: 100 },
