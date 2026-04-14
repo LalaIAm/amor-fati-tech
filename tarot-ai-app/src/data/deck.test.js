@@ -1,9 +1,10 @@
 // Feature: tarot-ai-app, Property 1: Deck integrity
 // Feature: tarot-ai-app, Property 2: Shuffle is a permutation
+// Feature: tarot-ai-app, Property 3: Reversed orientation distribution
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import deck from "./deck.js";
-import { shuffle } from "../engine/deck.js";
+import { shuffle, assignReversed } from "../engine/deck.js";
 
 describe("Property 1: Deck integrity", () => {
   it("contains exactly 78 cards", () => {
@@ -95,6 +96,25 @@ describe("Property 2: Shuffle is a permutation", () => {
         shuffle(d);
         const inputIdsAfter = d.map((c) => c.id);
         return JSON.stringify(inputIdsBefore) === JSON.stringify(inputIdsAfter);
+      }),
+      { numRuns: 100 },
+    );
+  });
+});
+
+// Feature: tarot-ai-app, Property 3: Reversed orientation distribution
+
+describe("Property 3: Reversed orientation distribution", () => {
+  it("proportion of reversed cards converges to 0.5 ± 0.05 over ≥1000 draws", () => {
+    fc.assert(
+      fc.property(fc.constant(null), () => {
+        const SAMPLE_SIZE = 1000;
+        let reversedCount = 0;
+        for (let i = 0; i < SAMPLE_SIZE; i++) {
+          if (assignReversed({})) reversedCount++;
+        }
+        const proportion = reversedCount / SAMPLE_SIZE;
+        return proportion >= 0.45 && proportion <= 0.55;
       }),
       { numRuns: 100 },
     );

@@ -40,7 +40,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 2: Shuffle is a permutation`
     - Assert output contains same card ids as input, same length, no additions or omissions
 
-  - [ ]\* 2.5 Write property test for reversed orientation distribution (Property 3)
+  - [-] 2.5 Write property test for reversed orientation distribution (Property 3)
     - **Property 3: Reversed orientation distribution**
     - **Validates: Requirements 2.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 3: Reversed orientation distribution`
