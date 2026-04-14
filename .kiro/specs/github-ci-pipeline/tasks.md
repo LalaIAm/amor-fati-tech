@@ -6,7 +6,7 @@ Create a single GitHub Actions workflow file at `.github/workflows/ci.yml` that 
 
 ## Tasks
 
-- [ ] 1. Create the GitHub Actions workflow file
+- [-] 1. Create the GitHub Actions workflow file
   - Create `.github/workflows/ci.yml` with the following structure:
     - `on` triggers for `push` and `pull_request` on all branches (`"**"`)
     - A single job named `ci` running on `ubuntu-latest`
