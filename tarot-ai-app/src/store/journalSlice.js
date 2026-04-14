@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { supabase } from "../supabaseClient.js";
 
 /**
  * @typedef {Object} JournalState
@@ -15,38 +16,121 @@ const initialState = {
   error: null,
 };
 
+/** Map a raw DB row (list view) to a camelCase JournalEntry */
+function mapRowToEntry(row) {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    spreadId: row.spread_id,
+    spreadName: row.spreads?.name ?? null,
+    intention: row.intention ?? null,
+    summaryInterpretation: row.summary_interpretation,
+    journalingPrompts: row.journaling_prompts ?? [],
+    userNotes: row.user_notes ?? null,
+    promptResponses: row.prompt_responses ?? {},
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+/** Map a raw DB row (detail view) to a full JournalEntry with drawnCards */
+function mapRowToFullEntry(row) {
+  const entry = mapRowToEntry(row);
+  entry.drawnCards = (row.drawn_cards ?? []).map((dc) => ({
+    id: dc.id,
+    cardId: dc.card_id,
+    position: dc.position,
+    positionLabel: dc.position_label,
+    isReversed: dc.is_reversed,
+    interpretation: dc.interpretation,
+  }));
+  return entry;
+}
+
 export const fetchJournalEntries = createAsyncThunk(
   "journal/fetchEntries",
   async (_, { rejectWithValue }) => {
-    // TODO: queries Supabase journal_entries ordered by created_at DESC
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .select("*, spreads(name)")
+      .order("created_at", { ascending: false });
+
+    if (error) return rejectWithValue(error.message);
+    return data.map(mapRowToEntry);
   },
 );
 
 export const fetchJournalEntry = createAsyncThunk(
   "journal/fetchEntry",
   async (id, { rejectWithValue }) => {
-    // TODO: queries single journal entry with drawn_cards join
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .select("*, spreads(name), drawn_cards(*)")
+      .eq("id", id)
+      .single();
+
+    if (error) return rejectWithValue(error.message);
+    return mapRowToFullEntry(data);
   },
 );
 
 export const updateNotes = createAsyncThunk(
   "journal/updateNotes",
   async ({ id, notes }, { rejectWithValue }) => {
-    // TODO: updates user_notes on journal_entries
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .update({ user_notes: notes, updated_at: new Date().toISOString() })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) return rejectWithValue(error.message);
+    return { id, notes, updatedAt: data.updated_at };
   },
 );
 
 export const savePromptResponse = createAsyncThunk(
   "journal/savePromptResponse",
   async ({ id, promptIndex, response }, { rejectWithValue }) => {
-    // TODO: merges into prompt_responses JSONB column
+    // Fetch current prompt_responses first, then merge
+    const { data: current, error: fetchError } = await supabase
+      .from("journal_entries")
+      .select("prompt_responses")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) return rejectWithValue(fetchError.message);
+
+    const merged = {
+      ...(current.prompt_responses ?? {}),
+      [promptIndex]: response,
+    };
+
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .update({
+        prompt_responses: merged,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) return rejectWithValue(error.message);
+    return { id, promptResponses: merged, updatedAt: data.updated_at };
   },
 );
 
 export const deleteJournalEntry = createAsyncThunk(
   "journal/deleteEntry",
   async (id, { rejectWithValue }) => {
-    // TODO: deletes from journal_entries (cascade removes drawn_cards)
+    const { error } = await supabase
+      .from("journal_entries")
+      .delete()
+      .eq("id", id);
+
+    if (error) return rejectWithValue(error.message);
+    return id;
   },
 );
 
@@ -59,7 +143,97 @@ const journalSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // handle all async thunks
+    // fetchJournalEntries
+    builder
+      .addCase(fetchJournalEntries.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchJournalEntries.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.entries = action.payload;
+      })
+      .addCase(fetchJournalEntries.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // fetchJournalEntry
+    builder
+      .addCase(fetchJournalEntry.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchJournalEntry.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.selectedEntry = action.payload;
+      })
+      .addCase(fetchJournalEntry.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // updateNotes
+    builder
+      .addCase(updateNotes.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateNotes.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const { id, notes, updatedAt } = action.payload;
+        if (state.selectedEntry?.id === id) {
+          state.selectedEntry.userNotes = notes;
+          state.selectedEntry.updatedAt = updatedAt;
+        }
+        const entry = state.entries.find((e) => e.id === id);
+        if (entry) {
+          entry.userNotes = notes;
+          entry.updatedAt = updatedAt;
+        }
+      })
+      .addCase(updateNotes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // savePromptResponse
+    builder
+      .addCase(savePromptResponse.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(savePromptResponse.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const { id, promptResponses, updatedAt } = action.payload;
+        if (state.selectedEntry?.id === id) {
+          state.selectedEntry.promptResponses = promptResponses;
+          state.selectedEntry.updatedAt = updatedAt;
+        }
+      })
+      .addCase(savePromptResponse.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // deleteJournalEntry
+    builder
+      .addCase(deleteJournalEntry.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(deleteJournalEntry.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const id = action.payload;
+        state.entries = state.entries.filter((e) => e.id !== id);
+        if (state.selectedEntry?.id === id) {
+          state.selectedEntry = null;
+        }
+      })
+      .addCase(deleteJournalEntry.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 
