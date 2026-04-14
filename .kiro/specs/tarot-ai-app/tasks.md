@@ -52,7 +52,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 4: Draw count matches spread`
     - For arbitrary N (1–10), assert `draw` returns exactly N cards with no repeated card ids
 
-- [ ] 3. Implement spread definitions
+- [-] 3. Implement spread definitions
   - Create `src/data/spreads.js` defining the three built-in spreads as plain JS objects
     - `single`: 1 position ("Present")
     - `three-card`: 3 positions (Past / Present / Future)

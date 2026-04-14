@@ -6,7 +6,7 @@ Create a single GitHub Actions workflow file at `.github/workflows/ci.yml` that 
 
 ## Tasks
 
-- [-] 1. Create the GitHub Actions workflow file
+- [x] 1. Create the GitHub Actions workflow file
   - Create `.github/workflows/ci.yml` with the following structure:
     - `on` triggers for `push` and `pull_request` on all branches (`"**"`)
     - A single job named `ci` running on `ubuntu-latest`
@@ -18,7 +18,7 @@ Create a single GitHub Actions workflow file at `.github/workflows/ci.yml` that 
     - Step 5: `npm run build` with the same step-level env vars
   - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 6.3_
 
-- [ ] 2. Checkpoint — Validate the workflow file
+- [x] 2. Checkpoint — Validate the workflow file
   - Ensure the YAML is syntactically valid (no indentation errors, correct key names).
   - Verify step ordering matches: checkout → setup-node → npm install → npx vitest --run → npm run build.
   - Confirm `defaults.run.working-directory` is set at the job level, not repeated per step.
