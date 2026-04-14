@@ -52,7 +52,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 4: Draw count matches spread`
     - For arbitrary N (1–10), assert `draw` returns exactly N cards with no repeated card ids
 
-- [-] 3. Implement spread definitions
+- [x] 3. Implement spread definitions
   - Create `src/data/spreads.js` defining the three built-in spreads as plain JS objects
     - `single`: 1 position ("Present")
     - `three-card`: 3 positions (Past / Present / Future)
@@ -68,13 +68,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ]\* 4.2 Write property test for auth round-trip (Property 5)
+  - [ ] 4.2 Write property test for auth round-trip (Property 5)
     - **Property 5: Auth round-trip**
     - **Validates: Requirements 1.2, 1.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
     - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
 
-  - [ ]\* 4.3 Write property test for auth error conditions (Property 6)
+  - [ ] 4.3 Write property test for auth error conditions (Property 6)
     - **Property 6: Auth error conditions**
     - **Validates: Requirements 1.3, 1.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
@@ -87,7 +87,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Status transitions: `idle → drawing → interpreting → saving → done | error`
     - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ]\* 4.5 Write property test for whitespace intention normalization (Property 17)
+  - [ ] 4.5 Write property test for whitespace intention normalization (Property 17)
     - **Property 17: Whitespace intention treated as absent**
     - **Validates: Requirements 4.1, 4.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
@@ -99,13 +99,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [ ]\* 4.7 Write property test for journal entry round-trip (Property 10)
+  - [ ] 4.7 Write property test for journal entry round-trip (Property 10)
     - **Property 10: Journal entry round-trip**
     - **Validates: Requirements 4.4, 6.1, 6.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
     - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
 
-  - [ ]\* 4.8 Write property test for prompt response round-trip (Property 14)
+  - [ ] 4.8 Write property test for prompt response round-trip (Property 14)
     - **Property 14: Prompt response round-trip**
     - **Validates: Requirements 8.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`
@@ -116,7 +116,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
 
-  - [ ]\* 4.10 Write property test for card frequency counts and top-3 display (Property 12)
+  - [ ] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
     - **Property 12: Card frequency counts and top-3 display**
     - **Validates: Requirements 7.1, 7.2, 10.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
@@ -133,7 +133,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Add the three RLS policies from the design document
     - _Requirements: 9.1, 9.3_
 
-  - [ ]\* 6.2 Write property test for user data isolation (Property 15)
+  - [ ] 6.2 Write property test for user data isolation (Property 15)
     - **Property 15: User data isolation**
     - **Validates: Requirements 9.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 15: User data isolation`
@@ -154,19 +154,19 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle OpenAI errors; return structured error response for timeout (>30s) / failure
     - _Requirements: 4.2, 4.3, 5.1, 5.2, 5.5, 5.6, 8.1, 9.2_
 
-  - [ ]\* 7.2 Write property test for AI prompt construction (Property 7)
+  - [ ] 7.2 Write property test for AI prompt construction (Property 7)
     - **Property 7: AI prompt construction includes all required fields**
     - **Validates: Requirements 4.2, 4.3, 5.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 7: AI prompt construction includes all required fields`
     - Generate arbitrary card/spread/intention combinations; assert prompt string contains card name, orientation, position label, position description, and intention or general-reading instruction
 
-  - [ ]\* 7.3 Write property test for interpretation word count (Property 8)
+  - [ ] 7.3 Write property test for interpretation word count (Property 8)
     - **Property 8: Interpretation word count**
     - **Validates: Requirements 5.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 8: Interpretation word count`
     - For any card interpretation text returned by the AI engine or its mock, assert word count is between 100 and 400 inclusive
 
-  - [ ]\* 7.4 Write property test for AI response structure (Property 9)
+  - [ ] 7.4 Write property test for AI response structure (Property 9)
     - **Property 9: AI response structure**
     - **Validates: Requirements 5.5, 8.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 9: AI response structure`
@@ -210,7 +210,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Respect `prefers-reduced-motion` for card flip animation
     - _Requirements: 2.5, 3.4, 11.3, 11.4_
 
-  - [ ]\* 9.4 Write property test for card alt text present (Property 16)
+  - [ ] 9.4 Write property test for card alt text present (Property 16)
     - **Property 16: Card alt text present**
     - **Validates: Requirements 11.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 16: Card alt text present`
@@ -239,13 +239,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Each entry links to `/journal/:id`
     - _Requirements: 6.2, 7.4_
 
-  - [ ]\* 11.2 Write property test for journal chronological ordering (Property 11)
+  - [ ] 11.2 Write property test for journal chronological ordering (Property 11)
     - **Property 11: Journal chronological ordering**
     - **Validates: Requirements 6.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
     - Generate arbitrary sets of journal entries with random `created_at` timestamps; assert `journalSlice.entries` is sorted descending
 
-  - [ ]\* 11.3 Write property test for journal entry summary fields (Property 13)
+  - [ ] 11.3 Write property test for journal entry summary fields (Property 13)
     - **Property 13: Journal entry summary fields**
     - **Validates: Requirements 7.4, 10.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`

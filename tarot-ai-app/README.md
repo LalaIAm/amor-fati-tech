@@ -157,6 +157,39 @@ const drawnCards = draw(shuffled, 3, positions);
 
 ---
 
+## Spread Definitions (`src/data/spreads.js`)
+
+Built-in spread definitions as plain JS objects. Never fetched from the database.
+
+**Spread shape:**
+
+```js
+{
+  id: string,              // 'single' | 'three-card' | 'celtic-cross'
+  name: string,
+  description: string,
+  positions: SpreadPosition[],
+}
+
+// SpreadPosition
+{ index: number, label: string, description: string }
+```
+
+**Built-in spreads:**
+
+| ID             | Name         | Card Count |
+| -------------- | ------------ | ---------- |
+| `single`       | Single Card  | 1          |
+| `three-card`   | Three Card   | 3          |
+| `celtic-cross` | Celtic Cross | 10         |
+
+**Helpers:**
+
+- `getSpreads()` — returns all three spreads
+- `getSpreadById(id)` — returns a spread by id, or `undefined` if not found
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
