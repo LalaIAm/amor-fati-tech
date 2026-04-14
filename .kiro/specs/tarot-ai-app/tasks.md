@@ -6,7 +6,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
 
 ## Tasks
 
-- [ ] 1. Scaffold project and configure tooling
+- [x] 1. Scaffold project and configure tooling
   - Initialize Vite + React project with JavaScript
   - Install dependencies: `@reduxjs/toolkit react-redux @supabase/supabase-js react-router-dom fast-check vitest @testing-library/react @testing-library/jest-dom`
   - Create `src/store/index.js` with `configureStore` wiring all four reducers (stubs for now)
