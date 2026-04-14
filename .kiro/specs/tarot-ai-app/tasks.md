@@ -16,7 +16,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - _Requirements: 1.1, 9.2_
 
 - [ ] 2. Implement static deck data and deck engine
-  - [ ] 2.1 Create `src/data/deck.js` with all 78 tarot cards as a plain JS array
+  - [-] 2.1 Create `src/data/deck.js` with all 78 tarot cards as a plain JS array
     - Each card object: `{ id, name, arcana, suit, imageDescription, uprightKeywords, reversedKeywords }`
     - 22 Major Arcana (id 0–21), 56 Minor Arcana (id 22–77) across four suits
     - _Requirements: 2.1, 2.2_

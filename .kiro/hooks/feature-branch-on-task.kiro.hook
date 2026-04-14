@@ -8,6 +8,8 @@
   },
   "then": {
     "type": "askAgent",
-    "prompt": "Before this task begins, create a new git feature branch named after the feature being implemented. Read the spec config at .kiro/specs/*/.config.kiro to get the feature name, then run: git checkout -b feature/<feature-name> 2>/dev/null || echo 'Branch already exists'. Use the kebab-case feature name from the spec directory."
-  }
+    "prompt": "Before this task begins, create a new git feature branch named after the feature being implemented. Read the spec config at .kiro/specs/*/.config.kiro to get the feature name, then run: git checkout -b feature/<feature-name> 2>/dev/null || echo 'Branch already exists'. Use the kebab-case feature name from the spec directory. Use the name of the task for the <feature-name>"
+  },
+  "workspaceFolderName": "apper",
+  "shortName": "feature-branch-on-task"
 }
