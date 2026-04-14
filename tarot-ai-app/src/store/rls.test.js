@@ -63,32 +63,37 @@ function buildRlsMock(
     if (table === "journal_entries") {
       return {
         // fetchJournalEntries: .select("*, spreads(name)").order(...) → array
+        // fetchDashboard recent: .select(...).order(...).limit(3)
+        // fetchDashboard count: .select("id", { count: "exact", head: true }) → awaited directly
         select: vi.fn((cols, opts) => {
-          // count query: { count: "exact", head: true }
+          // count query: { count: "exact", head: true } — awaited directly as a Promise
           if (opts && opts.count === "exact") {
             return Promise.resolve({ count: totalReadings, error: null });
           }
-          // list query (fetchJournalEntries): .select(...).order(...)
+          // All other selects need .order() chaining
           return {
-            order: vi.fn(() =>
-              Promise.resolve({
-                data: visibleJournalRows.map((r) => ({
-                  ...r,
-                  spreads: null,
-                })),
-                error: null,
-              }),
-            ),
-            // dashboard recent entries: .select(...).order(...).limit(3)
-            limit: vi.fn(() =>
-              Promise.resolve({
-                data: visibleJournalRows.slice(0, 3).map((r) => ({
-                  ...r,
-                  spreads: null,
-                })),
-                error: null,
-              }),
-            ),
+            order: vi.fn(() => ({
+              // fetchJournalEntries stops here (no .limit)
+              // fetchDashboard recent entries adds .limit(3)
+              limit: vi.fn(() =>
+                Promise.resolve({
+                  data: visibleJournalRows.slice(0, 3).map((r) => ({
+                    ...r,
+                    spreads: null,
+                  })),
+                  error: null,
+                }),
+              ),
+              // fetchJournalEntries awaits the .order() result directly
+              then: (resolve) =>
+                resolve({
+                  data: visibleJournalRows.map((r) => ({
+                    ...r,
+                    spreads: null,
+                  })),
+                  error: null,
+                }),
+            })),
           };
         }),
         insert: vi.fn(),
