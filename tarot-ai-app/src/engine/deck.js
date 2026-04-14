@@ -1,4 +1,4 @@
-import { deck as staticDeck } from "../data/deck.js";
+import staticDeck from "../data/deck.js";
 
 /**
  * @typedef {Object} TarotCard
