@@ -32,6 +32,28 @@ Manages authentication state with the following shape:
 
 ---
 
+## Testing
+
+Property-based tests use [fast-check](https://fast-check.dev/) with a minimum of 100 iterations per property.
+
+### Property 1: Deck integrity (`src/data/deck.test.js`)
+
+Validates the static deck data against these invariants:
+
+- Exactly 78 cards total
+- Exactly 22 Major Arcana
+- Exactly 56 Minor Arcana
+- No duplicate card ids
+- All required fields (`id`, `name`, `arcana`, `imageDescription`, `uprightKeywords`, `reversedKeywords`) are present and non-empty on every card
+
+Run tests with:
+
+```bash
+npx vitest --run
+```
+
+---
+
 ## Static Deck Data (`src/data/deck.js`)
 
 The full 78-card tarot deck is defined as a static JS array — never fetched from the database.

@@ -21,7 +21,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - 22 Major Arcana (id 0–21), 56 Minor Arcana (id 22–77) across four suits
     - _Requirements: 2.1, 2.2_
 
-  - [-] 2.2 Write property test for deck integrity (Property 1)
+  - [x] 2.2 Write property test for deck integrity (Property 1)
     - **Property 1: Deck integrity**
     - **Validates: Requirements 2.1, 2.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 1: Deck integrity`
