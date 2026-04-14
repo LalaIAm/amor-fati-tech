@@ -61,14 +61,14 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - _Requirements: 3.1, 3.2_
 
 - [-] 4. Implement Redux store slices
-  - [-] 4.1 Implement `src/store/authSlice.js`
+  - [x] 4.1 Implement `src/store/authSlice.js`
     - `signIn`, `signUp`, `signOut` async thunks calling Supabase Auth
     - `signInWithOAuth` async thunk calling `supabase.auth.signInWithOAuth` for third-party providers
     - `setSession` and `clearSession` synchronous reducers
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [~] 4.2 Write property test for auth round-trip (Property 5)
+  - [-] 4.2 Write property test for auth round-trip (Property 5)
     - **Property 5: Auth round-trip**
     - **Validates: Requirements 1.2, 1.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
