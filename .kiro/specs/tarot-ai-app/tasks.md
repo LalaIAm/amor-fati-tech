@@ -93,13 +93,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
     - Generate arbitrary whitespace-only strings; assert `readingSlice.intention` is normalized to `""`
 
-  - [-] 4.6 Implement `src/store/journalSlice.js`
+  - [x] 4.6 Implement `src/store/journalSlice.js`
     - `fetchJournalEntries`, `fetchJournalEntry`, `updateNotes`, `savePromptResponse`, `deleteJournalEntry` async thunks
     - `selectEntry` synchronous reducer
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [~] 4.7 Write property test for journal entry round-trip (Property 10)
+  - [-] 4.7 Write property test for journal entry round-trip (Property 10)
     - **Property 10: Journal entry round-trip**
     - **Validates: Requirements 4.4, 6.1, 6.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
