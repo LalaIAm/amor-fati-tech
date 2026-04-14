@@ -74,13 +74,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
     - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
 
-  - [-] 4.3 Write property test for auth error conditions (Property 6)
+  - [x] 4.3 Write property test for auth error conditions (Property 6)
     - **Property 6: Auth error conditions**
     - **Validates: Requirements 1.3, 1.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
     - Duplicate email registration SHALL set `authSlice.status` to `'failed'`; invalid credentials SHALL NOT set a session
 
-  - [~] 4.4 Implement `src/store/readingSlice.js`
+  - [-] 4.4 Implement `src/store/readingSlice.js`
     - `setSpread`, `setIntention` (normalize whitespace-only to `""`), `setDrawnCards`, `appendInterpretation`, `resetReading` reducers
     - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk; passes `previousInterpretationIds` to enforce distinct interpretations
     - `saveReading` async thunk: writes `journal_entries` + `drawn_cards` rows to Supabase
