@@ -60,63 +60,63 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Export a `getSpreads()` helper returning all three and a `getSpreadById(id)` helper
   - _Requirements: 3.1, 3.2_
 
-- [ ] 4. Implement Redux store slices
-  - [ ] 4.1 Implement `src/store/authSlice.js`
+- [-] 4. Implement Redux store slices
+  - [-] 4.1 Implement `src/store/authSlice.js`
     - `signIn`, `signUp`, `signOut` async thunks calling Supabase Auth
     - `signInWithOAuth` async thunk calling `supabase.auth.signInWithOAuth` for third-party providers
     - `setSession` and `clearSession` synchronous reducers
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ] 4.2 Write property test for auth round-trip (Property 5)
+  - [~] 4.2 Write property test for auth round-trip (Property 5)
     - **Property 5: Auth round-trip**
     - **Validates: Requirements 1.2, 1.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
     - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
 
-  - [ ] 4.3 Write property test for auth error conditions (Property 6)
+  - [~] 4.3 Write property test for auth error conditions (Property 6)
     - **Property 6: Auth error conditions**
     - **Validates: Requirements 1.3, 1.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
     - Duplicate email registration SHALL set `authSlice.status` to `'failed'`; invalid credentials SHALL NOT set a session
 
-  - [ ] 4.4 Implement `src/store/readingSlice.js`
+  - [~] 4.4 Implement `src/store/readingSlice.js`
     - `setSpread`, `setIntention` (normalize whitespace-only to `""`), `setDrawnCards`, `appendInterpretation`, `resetReading` reducers
     - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk; passes `previousInterpretationIds` to enforce distinct interpretations
     - `saveReading` async thunk: writes `journal_entries` + `drawn_cards` rows to Supabase
     - Status transitions: `idle → drawing → interpreting → saving → done | error`
     - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ] 4.5 Write property test for whitespace intention normalization (Property 17)
+  - [~] 4.5 Write property test for whitespace intention normalization (Property 17)
     - **Property 17: Whitespace intention treated as absent**
     - **Validates: Requirements 4.1, 4.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
     - Generate arbitrary whitespace-only strings; assert `readingSlice.intention` is normalized to `""`
 
-  - [ ] 4.6 Implement `src/store/journalSlice.js`
+  - [~] 4.6 Implement `src/store/journalSlice.js`
     - `fetchJournalEntries`, `fetchJournalEntry`, `updateNotes`, `savePromptResponse`, `deleteJournalEntry` async thunks
     - `selectEntry` synchronous reducer
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [ ] 4.7 Write property test for journal entry round-trip (Property 10)
+  - [~] 4.7 Write property test for journal entry round-trip (Property 10)
     - **Property 10: Journal entry round-trip**
     - **Validates: Requirements 4.4, 6.1, 6.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
     - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
 
-  - [ ] 4.8 Write property test for prompt response round-trip (Property 14)
+  - [~] 4.8 Write property test for prompt response round-trip (Property 14)
     - **Property 14: Prompt response round-trip**
     - **Validates: Requirements 8.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`
     - For any user response to a journaling prompt, saving then retrieving the entry SHALL return the same response text at the same prompt index in `journalSlice.selectedEntry.promptResponses`
 
-  - [ ] 4.9 Implement `src/store/dashboardSlice.js`
+  - [~] 4.9 Implement `src/store/dashboardSlice.js`
     - `fetchDashboard` async thunk: queries recent 3 entries, aggregates card frequencies (top 3), fetches latest pattern insight
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
 
-  - [ ] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
+  - [~] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
     - **Property 12: Card frequency counts and top-3 display**
     - **Validates: Requirements 7.1, 7.2, 10.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
