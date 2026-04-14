@@ -122,7 +122,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
     - Generate arbitrary reading histories; assert frequency counts match drawn_cards rows and top-3 are correct
 
-- [ ] 5. Checkpoint — Ensure all tests pass
+- [-] 5. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Implement Supabase database schema and RLS

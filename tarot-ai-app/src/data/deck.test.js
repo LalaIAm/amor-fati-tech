@@ -107,9 +107,11 @@ describe("Property 2: Shuffle is a permutation", () => {
 
 describe("Property 3: Reversed orientation distribution", () => {
   it("proportion of reversed cards converges to 0.5 ± 0.05 over ≥1000 draws", () => {
+    // Use a single run with a large sample size (10 000) so the proportion
+    // reliably converges within ±0.05 (>6σ margin) without flaky multi-run failures.
     fc.assert(
       fc.property(fc.constant(null), () => {
-        const SAMPLE_SIZE = 1000;
+        const SAMPLE_SIZE = 10_000;
         let reversedCount = 0;
         for (let i = 0; i < SAMPLE_SIZE; i++) {
           if (assignReversed({})) reversedCount++;
@@ -117,7 +119,7 @@ describe("Property 3: Reversed orientation distribution", () => {
         const proportion = reversedCount / SAMPLE_SIZE;
         return proportion >= 0.45 && proportion <= 0.55;
       }),
-      { numRuns: 100 },
+      { numRuns: 1 },
     );
   });
 });
