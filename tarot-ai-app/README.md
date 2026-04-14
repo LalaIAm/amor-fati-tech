@@ -32,6 +32,38 @@ Manages authentication state with the following shape:
 
 ---
 
+## Static Deck Data (`src/data/deck.js`)
+
+The full 78-card tarot deck is defined as a static JS array — never fetched from the database.
+
+**Card shape:**
+
+```js
+{
+  id: number,              // 0–77
+  name: string,
+  arcana: 'major' | 'minor',
+  suit: string | undefined, // undefined for Major Arcana
+  imageDescription: string,
+  uprightKeywords: string[],
+  reversedKeywords: string[],
+}
+```
+
+**Composition:**
+
+| Group                    | IDs   | Count    |
+| ------------------------ | ----- | -------- |
+| Major Arcana             | 0–21  | 22 cards |
+| Minor Arcana — Wands     | 22–35 | 14 cards |
+| Minor Arcana — Cups      | 36–49 | 14 cards |
+| Minor Arcana — Swords    | 50–63 | 14 cards |
+| Minor Arcana — Pentacles | 64–77 | 14 cards |
+
+The deck engine (`src/engine/deck.js`) consumes this data via `createDeck()`, which returns a copy of the array for shuffling and drawing.
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
