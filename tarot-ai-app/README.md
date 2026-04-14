@@ -61,8 +61,8 @@ Validates that `shuffle()` from `src/engine/deck.js` is a true permutation:
 
 Validates that `assignReversed()` from `src/engine/deck.js` produces a statistically fair coin flip:
 
-- Over a sample of 1000 draws, the proportion of reversed cards must fall within 0.5 ± 0.05 (i.e. between 0.45 and 0.55)
-- Verified across 100 independent runs via fast-check
+- Over a single sample of 10,000 draws, the proportion of reversed cards must fall within 0.5 ± 0.05 (i.e. between 0.45 and 0.55)
+- Uses a large sample size (10,000) rather than many smaller runs to ensure reliable convergence (>6σ margin) without flaky failures
 
 ### Property 4: Draw count matches spread (`src/data/deck.test.js`)
 
