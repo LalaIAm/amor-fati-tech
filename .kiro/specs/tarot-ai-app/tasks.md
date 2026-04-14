@@ -133,13 +133,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Add the three RLS policies from the design document
     - _Requirements: 9.1, 9.3_
 
-  - [-] 6.2 Write property test for user data isolation (Property 15)
+  - [x] 6.2 Write property test for user data isolation (Property 15)
     - **Property 15: User data isolation**
     - **Validates: Requirements 9.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 15: User data isolation`
     - For any two distinct authenticated users A and B, all queries in user A's session SHALL return zero rows belonging to user B; use Supabase local emulator with two test users
 
-  - [~] 6.3 Seed `spreads` table with the three built-in spread rows
+  - [-] 6.3 Seed `spreads` table with the three built-in spread rows
     - Create `supabase/seed.sql` inserting `single`, `three-card`, `celtic-cross` rows
     - _Requirements: 3.1_
 
