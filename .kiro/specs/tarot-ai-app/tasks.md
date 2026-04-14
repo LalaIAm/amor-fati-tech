@@ -27,14 +27,14 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 1: Deck integrity`
     - Assert exactly 78 cards, 22 Major Arcana, 56 Minor Arcana, no duplicate ids, all required fields non-empty
 
-  - [-] 2.3 Create `src/engine/deck.js` with `createDeck`, `shuffle`, `draw`, `assignReversed`
+  - [x] 2.3 Create `src/engine/deck.js` with `createDeck`, `shuffle`, `draw`, `assignReversed`
     - `createDeck()` returns a copy of the static deck array
     - `shuffle(deck)` implements Fisher-Yates, returns a new array (does not mutate input)
     - `draw(shuffledDeck, count, positions)` returns `DrawnCard[]` with `assignReversed` applied to each
     - `assignReversed(card)` returns `true` with 50% probability
     - _Requirements: 2.3, 2.4_
 
-  - [ ]\* 2.4 Write property test for shuffle permutation (Property 2)
+  - [~] 2.4 Write property test for shuffle permutation (Property 2)
     - **Property 2: Shuffle is a permutation**
     - **Validates: Requirements 2.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 2: Shuffle is a permutation`

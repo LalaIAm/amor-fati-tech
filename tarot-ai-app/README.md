@@ -86,6 +86,55 @@ The deck engine (`src/engine/deck.js`) consumes this data via `createDeck()`, wh
 
 ---
 
+## Deck Engine (`src/engine/deck.js`)
+
+Pure functions for deck manipulation — no side effects, fully testable without mocking.
+
+### `createDeck()`
+
+Returns a shallow copy of the static 78-card deck array.
+
+```js
+const deck = createDeck(); // TarotCard[]
+```
+
+### `shuffle(deck)`
+
+Returns a new array with cards in random order using Fisher-Yates. Does not mutate the input.
+
+```js
+const shuffled = shuffle(deck); // TarotCard[]
+```
+
+### `assignReversed(card)`
+
+Returns `true` (reversed) or `false` (upright) with 50% probability each. The `card` argument is accepted for API consistency but not used.
+
+```js
+const isReversed = assignReversed(card); // boolean
+```
+
+### `draw(shuffledDeck, count, positions)`
+
+Takes the first `count` cards from a shuffled deck and pairs each with a spread position and a randomly assigned reversal.
+
+```js
+const drawnCards = draw(shuffled, 3, positions);
+// DrawnCard[] — each: { card: TarotCard, reversed: boolean, position: SpreadPosition }
+```
+
+**Types:**
+
+```js
+// SpreadPosition
+{ index: number, label: string, description: string }
+
+// DrawnCard
+{ card: TarotCard, reversed: boolean, position: SpreadPosition }
+```
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
