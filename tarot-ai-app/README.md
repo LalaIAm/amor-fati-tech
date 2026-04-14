@@ -21,9 +21,12 @@ Manages authentication state with the following shape:
 
 **Async thunks** (backed by Supabase Auth):
 
-- `signIn({ email, password })` — signs in with email/password
-- `signUp({ email, password })` — registers a new user
-- `signOut()` — signs out the current user
+- `signIn({ email, password })` — signs in with email/password via `supabase.auth.signInWithPassword`
+- `signUp({ email, password })` — registers a new user via `supabase.auth.signUp`
+- `signOut()` — signs out the current user via `supabase.auth.signOut`; clears `session` and `user` on fulfillment
+- `signInWithOAuth({ provider })` — initiates OAuth sign-in via `supabase.auth.signInWithOAuth`; redirects the browser, so the session is set later via `setSession` from `AuthProvider`
+
+All thunks handle `pending` (sets `status: 'loading'`, clears `error`), `fulfilled`, and `rejected` (sets `status: 'failed'`, sets `error` to the Supabase error message).
 
 **Synchronous reducers:**
 

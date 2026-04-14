@@ -60,7 +60,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Export a `getSpreads()` helper returning all three and a `getSpreadById(id)` helper
   - _Requirements: 3.1, 3.2_
 
-- [-] 4. Implement Redux store slices
+- [x] 4. Implement Redux store slices
   - [x] 4.1 Implement `src/store/authSlice.js`
     - `signIn`, `signUp`, `signOut` async thunks calling Supabase Auth
     - `signInWithOAuth` async thunk calling `supabase.auth.signInWithOAuth` for third-party providers
@@ -116,7 +116,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
 
-  - [-] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
+  - [x] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
     - **Property 12: Card frequency counts and top-3 display**
     - **Validates: Requirements 7.1, 7.2, 10.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
