@@ -99,13 +99,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [-] 4.7 Write property test for journal entry round-trip (Property 10)
+  - [x] 4.7 Write property test for journal entry round-trip (Property 10)
     - **Property 10: Journal entry round-trip**
     - **Validates: Requirements 4.4, 6.1, 6.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
     - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
 
-  - [~] 4.8 Write property test for prompt response round-trip (Property 14)
+  - [-] 4.8 Write property test for prompt response round-trip (Property 14)
     - **Property 14: Prompt response round-trip**
     - **Validates: Requirements 8.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`

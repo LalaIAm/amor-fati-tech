@@ -244,3 +244,88 @@ describe("Property 10: Journal entry round-trip", () => {
     );
   });
 });
+
+// Feature: tarot-ai-app, Property 14: Prompt response round-trip
+import { selectEntry, savePromptResponse } from "./journalSlice.js";
+
+describe("Property 14: Prompt response round-trip", () => {
+  /**
+   * Validates: Requirements 8.4
+   *
+   * For any user response to a journaling prompt, saving the response and then
+   * retrieving the journal entry SHALL return the same response text at the
+   * same prompt index in journalSlice.selectedEntry.promptResponses.
+   */
+  it("saving a prompt response returns the same text at the same index", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.uuid(),
+        fc.integer({ min: 0, max: 2 }),
+        fc.string({ minLength: 1, maxLength: 1000 }),
+        async (entryId, promptIndex, responseText) => {
+          vi.clearAllMocks();
+
+          // Build per-iteration mocks
+          const selectSingleMock = vi.fn().mockResolvedValue({
+            data: { prompt_responses: {} },
+            error: null,
+          });
+
+          const updatedAt = new Date().toISOString();
+          const updateSingleMock = vi.fn().mockResolvedValue({
+            data: {
+              id: entryId,
+              prompt_responses: { [promptIndex]: responseText },
+              updated_at: updatedAt,
+            },
+            error: null,
+          });
+
+          supabase.from.mockImplementation((table) => {
+            if (table === "journal_entries") {
+              return {
+                select: vi.fn(() => ({
+                  eq: vi.fn(() => ({ single: selectSingleMock })),
+                })),
+                update: vi.fn(() => ({
+                  eq: vi.fn(() => ({
+                    select: vi.fn(() => ({ single: updateSingleMock })),
+                  })),
+                })),
+                insert: vi.fn(),
+                delete: vi.fn(),
+              };
+            }
+            return {
+              select: vi.fn(),
+              update: vi.fn(),
+              insert: vi.fn(),
+              delete: vi.fn(),
+            };
+          });
+
+          const store = makeStore();
+
+          // Pre-populate selectedEntry
+          store.dispatch(selectEntry({ id: entryId, promptResponses: {} }));
+
+          // Save the prompt response
+          await store.dispatch(
+            savePromptResponse({
+              id: entryId,
+              promptIndex,
+              response: responseText,
+            }),
+          );
+
+          const state = store.getState().journal;
+          expect(state.selectedEntry).not.toBeNull();
+          expect(state.selectedEntry.promptResponses[promptIndex]).toBe(
+            responseText,
+          );
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+});
