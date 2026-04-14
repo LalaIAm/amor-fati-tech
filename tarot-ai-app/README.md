@@ -61,6 +61,13 @@ Validates that `assignReversed()` from `src/engine/deck.js` produces a statistic
 - Over a sample of 1000 draws, the proportion of reversed cards must fall within 0.5 ± 0.05 (i.e. between 0.45 and 0.55)
 - Verified across 100 independent runs via fast-check
 
+### Property 4: Draw count matches spread (`src/data/deck.test.js`)
+
+Validates that `draw()` from `src/engine/deck.js` returns the correct number of cards for any spread size:
+
+- For any arbitrary count N (1–10), `draw()` returns exactly N cards
+- No card id is repeated in the drawn set
+
 Run tests with:
 
 ```bash
