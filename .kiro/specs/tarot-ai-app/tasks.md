@@ -105,13 +105,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
     - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
 
-  - [-] 4.8 Write property test for prompt response round-trip (Property 14)
+  - [x] 4.8 Write property test for prompt response round-trip (Property 14)
     - **Property 14: Prompt response round-trip**
     - **Validates: Requirements 8.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`
     - For any user response to a journaling prompt, saving then retrieving the entry SHALL return the same response text at the same prompt index in `journalSlice.selectedEntry.promptResponses`
 
-  - [~] 4.9 Implement `src/store/dashboardSlice.js`
+  - [-] 4.9 Implement `src/store/dashboardSlice.js`
     - `fetchDashboard` async thunk: queries recent 3 entries, aggregates card frequencies (top 3), fetches latest pattern insight
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
