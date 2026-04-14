@@ -46,6 +46,14 @@ Validates the static deck data against these invariants:
 - No duplicate card ids
 - All required fields (`id`, `name`, `arcana`, `imageDescription`, `uprightKeywords`, `reversedKeywords`) are present and non-empty on every card
 
+### Property 2: Shuffle is a permutation (`src/data/deck.test.js`)
+
+Validates that `shuffle()` from `src/engine/deck.js` is a true permutation:
+
+- Output length equals input length
+- Output contains exactly the same card ids as the input (no additions or omissions)
+- Input array is not mutated
+
 Run tests with:
 
 ```bash
