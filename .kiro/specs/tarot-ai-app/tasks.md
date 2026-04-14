@@ -80,14 +80,14 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
     - Duplicate email registration SHALL set `authSlice.status` to `'failed'`; invalid credentials SHALL NOT set a session
 
-  - [-] 4.4 Implement `src/store/readingSlice.js`
+  - [x] 4.4 Implement `src/store/readingSlice.js`
     - `setSpread`, `setIntention` (normalize whitespace-only to `""`), `setDrawnCards`, `appendInterpretation`, `resetReading` reducers
     - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk; passes `previousInterpretationIds` to enforce distinct interpretations
     - `saveReading` async thunk: writes `journal_entries` + `drawn_cards` rows to Supabase
     - Status transitions: `idle → drawing → interpreting → saving → done | error`
     - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5, 5.6_
 
-  - [~] 4.5 Write property test for whitespace intention normalization (Property 17)
+  - [-] 4.5 Write property test for whitespace intention normalization (Property 17)
     - **Property 17: Whitespace intention treated as absent**
     - **Validates: Requirements 4.1, 4.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
