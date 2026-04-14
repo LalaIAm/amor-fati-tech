@@ -46,7 +46,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 3: Reversed orientation distribution`
     - Draw ≥1000 cards, assert proportion reversed is 0.5 ± 0.05
 
-  - [ ]\* 2.6 Write property test for draw count matches spread (Property 4)
+  - [-] 2.6 Write property test for draw count matches spread (Property 4)
     - **Property 4: Draw count matches spread**
     - **Validates: Requirements 2.3, 3.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 4: Draw count matches spread`

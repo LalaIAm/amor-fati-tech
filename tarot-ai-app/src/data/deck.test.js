@@ -1,10 +1,11 @@
 // Feature: tarot-ai-app, Property 1: Deck integrity
 // Feature: tarot-ai-app, Property 2: Shuffle is a permutation
 // Feature: tarot-ai-app, Property 3: Reversed orientation distribution
+// Feature: tarot-ai-app, Property 4: Draw count matches spread
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
 import deck from "./deck.js";
-import { shuffle, assignReversed } from "../engine/deck.js";
+import { shuffle, assignReversed, draw } from "../engine/deck.js";
 
 describe("Property 1: Deck integrity", () => {
   it("contains exactly 78 cards", () => {
@@ -115,6 +116,43 @@ describe("Property 3: Reversed orientation distribution", () => {
         }
         const proportion = reversedCount / SAMPLE_SIZE;
         return proportion >= 0.45 && proportion <= 0.55;
+      }),
+      { numRuns: 100 },
+    );
+  });
+});
+
+// Feature: tarot-ai-app, Property 4: Draw count matches spread
+
+describe("Property 4: Draw count matches spread", () => {
+  it("returns exactly N cards for arbitrary N (1–10)", () => {
+    fc.assert(
+      fc.property(fc.integer({ min: 1, max: 10 }), (n) => {
+        const positions = Array.from({ length: n }, (_, i) => ({
+          index: i,
+          label: `Position ${i + 1}`,
+          description: `Description ${i + 1}`,
+        }));
+        const shuffled = shuffle(deck);
+        const drawn = draw(shuffled, n, positions);
+        return drawn.length === n;
+      }),
+      { numRuns: 100 },
+    );
+  });
+
+  it("has no repeated card ids in a single draw", () => {
+    fc.assert(
+      fc.property(fc.integer({ min: 1, max: 10 }), (n) => {
+        const positions = Array.from({ length: n }, (_, i) => ({
+          index: i,
+          label: `Position ${i + 1}`,
+          description: `Description ${i + 1}`,
+        }));
+        const shuffled = shuffle(deck);
+        const drawn = draw(shuffled, n, positions);
+        const ids = drawn.map((d) => d.card.id);
+        return new Set(ids).size === ids.length;
       }),
       { numRuns: 100 },
     );
