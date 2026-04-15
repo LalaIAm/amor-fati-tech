@@ -216,14 +216,14 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 16: Card alt text present`
     - Generate arbitrary card data; render `CardDrawDisplay`; assert every `<img>` has non-empty `alt` containing card name and imageDescription
 
-  - [-] 9.5 Create `src/components/InterpretationPanel.jsx`
+  - [x] 9.5 Create `src/components/InterpretationPanel.jsx`
     - Display streaming interpretation text per card position as chunks arrive via `appendInterpretation`
     - Show loading spinner while `readingSlice.status === 'interpreting'`
     - Display summary interpretation and three journaling prompts after streaming completes
     - Show error message + retry button when `readingSlice.status === 'error'`
     - _Requirements: 5.3, 5.4, 5.5, 8.1, 8.2_
 
-  - [ ] 9.6 Create `src/pages/NewReadingPage.jsx`
+  - [-] 9.6 Create `src/pages/NewReadingPage.jsx`
     - Compose `SpreadSelector → IntentionInput → CardDrawDisplay → InterpretationPanel` in sequence
     - On spread + intention confirmed: dispatch `setDrawnCards` (using deck engine), then dispatch `fetchInterpretation`
     - On interpretation complete: dispatch `saveReading`, then navigate to `/journal/:id`

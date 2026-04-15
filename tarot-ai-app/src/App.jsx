@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthProvider from "./components/AuthProvider.jsx";
 import AuthPage from "./components/AuthPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import NewReadingPage from "./pages/NewReadingPage.jsx";
 
 function ComingSoon({ page }) {
   return <p>Coming soon: {page}</p>;
@@ -25,7 +26,7 @@ function App() {
           path="/reading/new"
           element={
             <ProtectedRoute>
-              <ComingSoon page="New Reading" />
+              <NewReadingPage />
             </ProtectedRoute>
           }
         />
