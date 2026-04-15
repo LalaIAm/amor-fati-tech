@@ -65,9 +65,11 @@ function CardItem({ drawnCard }) {
 
 const styles = {
   container: {
-    padding: "24px",
+    padding: "clamp(12px, 3vw, 24px)",
     maxWidth: "900px",
     margin: "0 auto",
+    width: "100%",
+    boxSizing: "border-box",
   },
   heading: {
     margin: "0 0 20px",
@@ -76,7 +78,7 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(130px, 100%), 1fr))",
     gap: "20px",
   },
   card: {

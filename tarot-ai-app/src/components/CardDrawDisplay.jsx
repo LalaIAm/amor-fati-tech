@@ -124,10 +124,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    /* Animation applied via CSS class; suppressed by prefers-reduced-motion */
-    animationName: "cardFlipIn",
-    animationDuration: "0.5s",
-    animationFillMode: "both",
+    /* Animation is applied via the .card-face CSS class in index.css,
+       which is wrapped in prefers-reduced-motion: no-preference */
   },
   cardFaceReversed: {
     transform: "rotate(180deg)",

@@ -131,8 +131,7 @@ body {
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: min(1126px, 100%);
   margin: 0 auto;
   text-align: center;
   border-inline: 1px solid var(--border);
@@ -140,6 +139,142 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+
+  /* Hide side borders on narrow screens to avoid cramped look */
+  @media (max-width: 767px) {
+    border-inline: none;
+  }
+}
+
+/* ── Global responsive utilities ─────────────────────────────────────────── */
+
+/* Ensure all interactive elements meet 44px minimum touch target */
+button,
+[role="button"],
+a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Restore block display for links that are block-level containers */
+a.journal-list__link {
+  display: grid;
+}
+
+/* ── Journal list (JournalList.jsx uses class names) ─────────────────────── */
+
+.journal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.journal-list__item {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card-bg, var(--accent-bg));
+  overflow: hidden;
+}
+
+.journal-list__link {
+  display: grid;
+  grid-template-columns: clamp(100px, 30%, 160px) 1fr 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .journal-list__link {
+    transition: background 0.15s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal-list__link {
+    transition: none;
+  }
+}
+
+.journal-list__link:hover {
+  background: var(--accent-bg);
+}
+
+.journal-list__date {
+  font-size: 13px;
+  color: var(--text-muted, #888);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journal-list__spread {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-h);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.journal-list__intention {
+  font-size: 13px;
+  color: var(--text-body, #555);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Stack journal list columns on mobile */
+@media (max-width: 599px) {
+  .journal-list__link {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .journal-list__date {
+    font-size: 12px;
+  }
+}
+
+/* ── Responsive breakpoints for page containers ──────────────────────────── */
+
+/* 320px — mobile minimum */
+@media (max-width: 374px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+/* 768px — tablet */
+@media (max-width: 768px) {
+  h1 {
+    font-size: clamp(22px, 6vw, 36px);
+    margin: 16px 0;
+  }
+
+  h2 {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+}
+
+/* 2560px — large/4K screens: cap content width and scale up base font */
+@media (min-width: 2560px) {
+  :root {
+    font-size: 20px;
+  }
+
+  #root {
+    width: min(1400px, 100%);
+  }
 }
 
 h1,

@@ -248,6 +248,34 @@ Renders the last 3 journal entry summaries from `dashboardSlice.recentEntries` o
 
 ---
 
+## Theming & CSS Custom Properties (`src/index.css`)
+
+All visual tokens are defined as CSS custom properties on `:root` and overridden in `@media (prefers-color-scheme: dark)`.
+
+| Variable           | Default value                | Purpose                                |
+| ------------------ | ---------------------------- | -------------------------------------- |
+| `--bg`             | `#faf8ff`                    | Page background                        |
+| `--surface`        | `#f0ecfa`                    | Elevated surface (cards, panels)       |
+| `--card-bg`        | `rgba(170, 59, 255, 0.06)`   | Tarot card tile background             |
+| `--text`           | `#6b6375`                    | Body text                              |
+| `--text-h`         | `#08060d`                    | Heading text                           |
+| `--border`         | `#e5e4e7`                    | Default border                         |
+| `--code-bg`        | `#f4f3ec`                    | Inline code background                 |
+| `--accent`         | `#aa3bff`                    | Primary accent (buttons, links, focus) |
+| `--accent-bg`      | `rgba(170, 59, 255, 0.1)`    | Accent tint background                 |
+| `--accent-border`  | `rgba(170, 59, 255, 0.5)`    | Accent border                          |
+| `--btn-text`       | `#ffffff`                    | Text on filled accent buttons          |
+| `--social-bg`      | `rgba(244, 243, 236, 0.5)`   | OAuth / social button background       |
+| `--error`          | `#dc2626`                    | Error text                             |
+| `--error-bg`       | `rgba(220, 38, 38, 0.06)`    | Error message background               |
+| `--error-border`   | `rgba(220, 38, 38, 0.4)`     | Error message border                   |
+| `--success`        | `#16a34a`                    | Success text                           |
+| `--success-bg`     | `rgba(22, 163, 74, 0.08)`    | Success message background             |
+| `--success-border` | `#16a34a`                    | Success message border                 |
+| `--shadow`         | box-shadow (10px/6px offset) | Elevation shadow                       |
+
+---
+
 ## Database Migrations
 
 ### `001_initial_schema.sql`

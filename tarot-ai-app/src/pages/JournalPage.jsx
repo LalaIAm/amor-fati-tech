@@ -60,7 +60,7 @@ const styles = {
     maxWidth: "720px",
     margin: "0 auto",
     width: "100%",
-    padding: "32px 24px 48px",
+    padding: "clamp(16px, 4vw, 32px) clamp(12px, 4vw, 24px) 48px",
     boxSizing: "border-box",
     display: "flex",
     flexDirection: "column",
@@ -88,6 +88,9 @@ const styles = {
     fontSize: "14px",
     textDecoration: "none",
     flexShrink: 0,
+    minHeight: "44px",
+    display: "inline-flex",
+    alignItems: "center",
   },
   banner: {
     display: "flex",

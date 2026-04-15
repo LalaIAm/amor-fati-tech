@@ -138,11 +138,11 @@ const styles = {
   navInner: {
     maxWidth: "1126px",
     margin: "0 auto",
-    padding: "0 24px",
+    padding: "0 clamp(12px, 4vw, 24px)",
     height: "52px",
     display: "flex",
     alignItems: "center",
-    gap: "24px",
+    gap: "clamp(8px, 2vw, 24px)",
   },
   brand: {
     fontSize: "16px",
@@ -166,6 +166,9 @@ const styles = {
     color: "var(--text)",
     textDecoration: "none",
     transition: "background 0.15s, color 0.15s",
+    minHeight: "44px",
+    display: "inline-flex",
+    alignItems: "center",
   },
   navLinkActive: {
     color: "var(--accent)",
@@ -182,5 +185,6 @@ const styles = {
     fontWeight: 500,
     cursor: "pointer",
     flexShrink: 0,
+    minHeight: "44px",
   },
 };

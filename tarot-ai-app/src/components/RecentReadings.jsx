@@ -76,13 +76,14 @@ const styles = {
   },
   link: {
     display: "grid",
-    gridTemplateColumns: "160px 1fr 1fr",
+    gridTemplateColumns: "clamp(100px, 30%, 160px) 1fr 1fr",
     gap: "12px",
     padding: "14px 16px",
     textDecoration: "none",
     color: "inherit",
     alignItems: "center",
     transition: "background 0.15s",
+    minHeight: "44px",
   },
   date: {
     fontSize: "13px",

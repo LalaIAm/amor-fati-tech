@@ -86,10 +86,12 @@ export default function SpreadSelector({ onConfirm }) {
 
 const styles = {
   container: {
-    padding: "32px 24px",
+    padding: "clamp(16px, 4vw, 32px) clamp(12px, 4vw, 24px)",
     maxWidth: "720px",
     margin: "0 auto",
     textAlign: "left",
+    width: "100%",
+    boxSizing: "border-box",
   },
   heading: {
     margin: "0 0 8px",
@@ -103,7 +105,7 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
     gap: "12px",
     marginBottom: "24px",
   },
@@ -118,6 +120,7 @@ const styles = {
     cursor: "pointer",
     textAlign: "left",
     transition: "border-color 0.15s, box-shadow 0.15s",
+    minHeight: "44px",
   },
   cardSelected: {
     borderColor: "var(--accent)",

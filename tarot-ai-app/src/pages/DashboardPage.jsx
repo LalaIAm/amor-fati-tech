@@ -79,7 +79,9 @@ const styles = {
   main: {
     maxWidth: "860px",
     margin: "0 auto",
-    padding: "32px 20px",
+    padding: "clamp(16px, 4vw, 32px) clamp(12px, 4vw, 20px)",
+    width: "100%",
+    boxSizing: "border-box",
   },
   header: {
     display: "flex",
@@ -105,6 +107,8 @@ const styles = {
     fontWeight: 600,
     cursor: "pointer",
     letterSpacing: "0.02em",
+    minHeight: "44px",
+    flexShrink: 0,
   },
   statusMsg: {
     color: "var(--text-muted, var(--text))",

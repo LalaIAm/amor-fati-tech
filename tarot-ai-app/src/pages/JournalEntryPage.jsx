@@ -183,10 +183,12 @@ const styles = {
   headerInner: {
     maxWidth: "900px",
     margin: "0 auto",
-    padding: "20px 24px",
+    padding: "clamp(12px, 3vw, 20px) clamp(12px, 4vw, 24px)",
     display: "flex",
     flexDirection: "column",
     gap: "12px",
+    width: "100%",
+    boxSizing: "border-box",
   },
   backBtn: {
     alignSelf: "flex-start",
@@ -237,6 +239,7 @@ const styles = {
     fontSize: "14px",
     fontWeight: 500,
     cursor: "pointer",
+    minHeight: "44px",
   },
   btnSecondary: {
     padding: "8px 16px",
@@ -246,6 +249,7 @@ const styles = {
     color: "var(--text)",
     fontSize: "14px",
     cursor: "pointer",
+    minHeight: "44px",
   },
   content: {
     flex: 1,

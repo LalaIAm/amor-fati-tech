@@ -61,9 +61,9 @@ const styles = {
     listStyle: "none",
     margin: 0,
     padding: 0,
-    display: "flex",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(100px, 100%), 1fr))",
     gap: "16px",
-    flexWrap: "wrap",
   },
   item: {
     display: "flex",
@@ -74,9 +74,6 @@ const styles = {
     borderRadius: "8px",
     border: "1px solid var(--border)",
     background: "var(--card-bg, var(--accent-bg))",
-    minWidth: "100px",
-    flex: "1 1 100px",
-    maxWidth: "160px",
     textAlign: "center",
   },
   imageWrapper: {
