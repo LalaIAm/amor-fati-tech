@@ -1,8 +1,20 @@
 // Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent
 
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
 import * as fc from "fast-check";
+
+// Mock supabase so readingSlice can be imported without real env vars
+vi.mock("../supabaseClient.js", () => ({
+  supabase: {
+    auth: { getUser: vi.fn() },
+    functions: { invoke: vi.fn() },
+    from: vi.fn(() => ({
+      insert: vi.fn(() => ({ select: vi.fn(() => ({ single: vi.fn() })) })),
+    })),
+  },
+}));
+
 import readingReducer, { setIntention } from "./readingSlice.js";
 
 function makeStore() {

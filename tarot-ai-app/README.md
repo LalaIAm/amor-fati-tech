@@ -193,6 +193,27 @@ Built-in spread definitions as plain JS objects. Never fetched from the database
 
 ---
 
+## Components
+
+### `SpreadSelector` (`src/components/SpreadSelector.jsx`)
+
+Renders the spread selection step of the new reading flow. Displays all three built-in spreads as selectable cards, shows a position-by-position preview for the selected spread, and emits a confirmation callback when the user proceeds.
+
+**Props:**
+
+| Prop        | Type       | Description                                                    |
+| ----------- | ---------- | -------------------------------------------------------------- |
+| `onConfirm` | `function` | Called with the selected spread object when the user confirms. |
+
+**Behavior:**
+
+- Reads `state.reading.selectedSpread` from Redux to track the active selection
+- Dispatches `setSpread(spread)` from `readingSlice` on card click
+- Shows an `aria-live` position preview panel below the spread grid when a spread is selected
+- The "Continue" button is disabled until a spread is selected; enabled state dispatches `onConfirm(selectedSpread)`
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
