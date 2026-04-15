@@ -232,7 +232,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
 - [x] 10. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [-] 11. Implement journal UI
+- [x] 11. Implement journal UI
   - [x] 11.1 Create `src/components/JournalList.jsx`
     - Dispatch `fetchJournalEntries` on mount
     - Render chronological list (most recent first) showing date, spread name, and intention per entry
@@ -273,7 +273,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Show delete button with confirmation dialog; on confirm dispatch `deleteJournalEntry` then navigate to `/journal`
     - _Requirements: 6.3, 6.4, 6.5_
 
-  - [-] 11.8 Create `src/pages/JournalPage.jsx`
+  - [x] 11.8 Create `src/pages/JournalPage.jsx`
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 

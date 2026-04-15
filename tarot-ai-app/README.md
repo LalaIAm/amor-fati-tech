@@ -214,6 +214,25 @@ Renders the spread selection step of the new reading flow. Displays all three bu
 
 ---
 
+### `JournalList` (`src/components/JournalList.jsx`)
+
+Renders the user's journal entries in reverse-chronological order (most recent first).
+
+**Behavior:**
+
+- Dispatches `fetchJournalEntries()` from `journalSlice` on mount
+- Shows a loading message while `status === 'loading'`
+- Shows an error message (including the error string) when `status === 'failed'`
+- Shows an empty-state prompt when there are no entries
+- Each entry renders as a `<Link>` to `/journal/:id` displaying:
+  - Formatted date (`month day, year`)
+  - Spread name
+  - Intention text, or `"No intention set"` when absent/whitespace-only
+
+**CSS classes:** `journal-list`, `journal-list__item`, `journal-list__link`, `journal-list__date`, `journal-list__spread`, `journal-list__intention`
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
