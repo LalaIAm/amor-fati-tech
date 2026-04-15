@@ -256,13 +256,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Auto-save on blur dispatching `updateNotes`
     - _Requirements: 6.4_
 
-  - [-] 11.5 Create `src/components/JournalingPrompts.jsx`
+  - [x] 11.5 Create `src/components/JournalingPrompts.jsx`
     - Display three prompts from `selectedEntry.journalingPrompts`
     - On prompt click: expand inline textarea pre-populated with prompt text
     - On blur: dispatch `savePromptResponse`
     - _Requirements: 8.2, 8.3, 8.4_
 
-  - [~] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
+  - [-] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
     - `CardGrid`: renders drawn cards in a grid layout with name, orientation badge, and position label; each card image has `alt` text with name and imageDescription
     - `InterpretationList`: renders the per-card interpretation texts and the summary interpretation
     - _Requirements: 2.5, 3.4, 5.5, 11.3_
