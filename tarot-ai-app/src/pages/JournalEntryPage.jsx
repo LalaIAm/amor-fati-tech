@@ -173,7 +173,7 @@ const styles = {
   },
   errorText: {
     margin: 0,
-    color: "#dc2626",
+    color: "var(--error)",
     fontSize: "15px",
   },
   header: {
@@ -231,9 +231,9 @@ const styles = {
     alignSelf: "flex-start",
     padding: "8px 16px",
     borderRadius: "6px",
-    border: "1px solid #dc2626",
+    border: "1px solid var(--error-border)",
     background: "transparent",
-    color: "#dc2626",
+    color: "var(--error)",
     fontSize: "14px",
     fontWeight: 500,
     cursor: "pointer",

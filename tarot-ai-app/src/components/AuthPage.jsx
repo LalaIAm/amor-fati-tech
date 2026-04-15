@@ -191,9 +191,9 @@ const styles = {
     margin: "4px 0 0",
     padding: "10px 12px",
     borderRadius: "6px",
-    background: "rgba(220, 38, 38, 0.1)",
-    border: "1px solid rgba(220, 38, 38, 0.4)",
-    color: "#dc2626",
+    background: "var(--error-bg)",
+    border: "1px solid var(--error-border)",
+    color: "var(--error)",
     fontSize: "14px",
     textAlign: "left",
   },
@@ -210,7 +210,7 @@ const styles = {
   },
   primaryButton: {
     background: "var(--accent)",
-    color: "#fff",
+    color: "var(--btn-text)",
   },
   oauthButton: {
     background: "var(--social-bg)",

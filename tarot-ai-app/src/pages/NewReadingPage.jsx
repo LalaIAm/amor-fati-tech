@@ -212,7 +212,7 @@ const styles = {
     fontWeight: 600,
   },
   stepItemDone: {
-    color: "#16a34a",
+    color: "var(--success)",
   },
   stepDot: {
     width: "22px",

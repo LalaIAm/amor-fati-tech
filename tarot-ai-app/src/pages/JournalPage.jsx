@@ -83,7 +83,7 @@ const styles = {
     padding: "8px 18px",
     borderRadius: "6px",
     background: "var(--accent)",
-    color: "#fff",
+    color: "var(--btn-text)",
     fontWeight: 600,
     fontSize: "14px",
     textDecoration: "none",

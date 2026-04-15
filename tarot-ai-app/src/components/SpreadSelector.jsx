@@ -175,7 +175,7 @@ const styles = {
     borderRadius: "8px",
     border: "none",
     background: "var(--accent)",
-    color: "#fff",
+    color: "var(--btn-text)",
     fontSize: "15px",
     fontWeight: 500,
     cursor: "pointer",

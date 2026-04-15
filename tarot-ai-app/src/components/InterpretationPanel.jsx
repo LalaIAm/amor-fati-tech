@@ -166,8 +166,8 @@ const styles = {
   errorWrapper: {
     padding: "20px",
     borderRadius: "10px",
-    border: "1px solid rgba(220,38,38,0.4)",
-    background: "rgba(220,38,38,0.06)",
+    border: "1px solid var(--error-border)",
+    background: "var(--error-bg)",
     display: "flex",
     flexDirection: "column",
     gap: "12px",
@@ -175,7 +175,7 @@ const styles = {
   },
   errorText: {
     margin: 0,
-    color: "#dc2626",
+    color: "var(--error)",
     fontSize: "15px",
   },
   retryBtn: {
@@ -183,7 +183,7 @@ const styles = {
     borderRadius: "6px",
     border: "none",
     background: "var(--accent)",
-    color: "#fff",
+    color: "var(--btn-text)",
     fontSize: "14px",
     fontWeight: 500,
     cursor: "pointer",
@@ -230,14 +230,14 @@ const styles = {
     border: "1px solid",
   },
   orientationUpright: {
-    color: "#16a34a",
-    borderColor: "#16a34a",
-    background: "rgba(22,163,74,0.08)",
+    color: "var(--success)",
+    borderColor: "var(--success-border)",
+    background: "var(--success-bg)",
   },
   orientationReversed: {
-    color: "#dc2626",
-    borderColor: "#dc2626",
-    background: "rgba(220,38,38,0.08)",
+    color: "var(--error)",
+    borderColor: "var(--error)",
+    background: "var(--error-bg)",
   },
   interpText: {
     margin: 0,

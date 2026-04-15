@@ -1,13 +1,22 @@
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #faf8ff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
+  --surface: #f0ecfa;
+  --card-bg: rgba(170, 59, 255, 0.06);
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
+  --btn-text: #ffffff;
+  --error: #dc2626;
+  --error-bg: rgba(220, 38, 38, 0.06);
+  --error-border: rgba(220, 38, 38, 0.4);
+  --success: #16a34a;
+  --success-bg: rgba(22, 163, 74, 0.08);
+  --success-border: #16a34a;
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -32,17 +41,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
+    --text: #a89fc0;
+    --text-h: #ede9f6;
+    --bg: #0f0d17;
+    --border: #2a2540;
+    --code-bg: #1a1728;
+    --surface: #1e1a2e;
+    --card-bg: rgba(192, 132, 252, 0.08);
     --accent: #c084fc;
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --social-bg: rgba(42, 37, 64, 0.6);
+    --btn-text: #ffffff;
+    --error: #f87171;
+    --error-bg: rgba(248, 113, 113, 0.08);
+    --error-border: rgba(248, 113, 113, 0.4);
+    --success: #4ade80;
+    --success-bg: rgba(74, 222, 128, 0.08);
+    --success-border: #4ade80;
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
   }
 
   #social .button-icon {

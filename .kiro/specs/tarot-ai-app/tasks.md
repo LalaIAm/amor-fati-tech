@@ -312,20 +312,20 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Dispatch `clearSession` and redirect to `/login` after deletion
   - _Requirements: 9.4_
 
-- [~] 15. Implement accessibility and responsive layout
-  - [ ] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
+- [-] 15. Implement accessibility and responsive layout
+  - [x] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
     - Ensure all clickable non-button elements have `role`, `tabIndex`, and `onKeyDown` handlers
     - _Requirements: 11.2_
 
-  - [ ] 15.2 Add `prefers-color-scheme` dark/light mode support
+  - [-] 15.2 Add `prefers-color-scheme` dark/light mode support
     - Use CSS custom properties for theme tokens; apply `@media (prefers-color-scheme: dark)` overrides
     - _Requirements: 11.5_
 
-  - [ ] 15.3 Add responsive CSS ensuring layout works from 320px to 2560px
+  - [~] 15.3 Add responsive CSS ensuring layout works from 320px to 2560px
     - Use CSS Grid/Flexbox; test breakpoints at 320px, 768px, 1280px, 2560px
     - _Requirements: 11.1_
 
-  - [ ] 15.4 Add `prefers-reduced-motion` media query to disable card animations
+  - [~] 15.4 Add `prefers-reduced-motion` media query to disable card animations
     - Wrap all CSS animation/transition rules with `@media (prefers-reduced-motion: no-preference)`
     - _Requirements: 11.4_
 
