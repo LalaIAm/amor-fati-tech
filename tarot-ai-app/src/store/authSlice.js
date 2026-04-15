@@ -54,6 +54,15 @@ export const signInWithOAuth = createAsyncThunk(
   },
 );
 
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (_, { dispatch, rejectWithValue }) => {
+    const { error } = await supabase.rpc("delete_user");
+    if (error) return rejectWithValue(error.message);
+    dispatch(clearSession());
+  },
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -127,6 +136,22 @@ const authSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(signInWithOAuth.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // deleteAccount
+    builder
+      .addCase(deleteAccount.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(deleteAccount.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.session = null;
+        state.user = null;
+      })
+      .addCase(deleteAccount.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
