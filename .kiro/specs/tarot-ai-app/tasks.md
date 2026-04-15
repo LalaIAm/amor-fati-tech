@@ -144,7 +144,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - _Requirements: 3.1_
 
 - [-] 7. Implement Supabase Edge Function for AI interpretation
-  - [-] 7.1 Create `supabase/functions/interpret/index.js`
+  - [x] 7.1 Create `supabase/functions/interpret/index.js`
     - Validate the caller's JWT using Supabase Auth before processing
     - Build the GPT-4o prompt including each card's name, orientation, position label/description, and intention (or general-reading instruction when intention is null/empty); enforce 500-char cap on intention
     - Pass `previousInterpretationIds` in the prompt context to ensure distinct interpretations per Req 5.6
@@ -154,7 +154,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle OpenAI errors; return structured error response for timeout (>30s) / failure
     - _Requirements: 4.2, 4.3, 5.1, 5.2, 5.5, 5.6, 8.1, 9.2_
 
-  - [ ] 7.2 Write property test for AI prompt construction (Property 7)
+  - [-] 7.2 Write property test for AI prompt construction (Property 7)
     - **Property 7: AI prompt construction includes all required fields**
     - **Validates: Requirements 4.2, 4.3, 5.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 7: AI prompt construction includes all required fields`
