@@ -299,7 +299,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Show empty-state prompt when `recentEntries` is empty
     - _Requirements: 10.1, 10.6, 10.7_
 
-- [ ] 13. Implement routing and app shell
+- [-] 13. Implement routing and app shell
   - Create `src/App.jsx` with React Router routes: `/login`, `/dashboard`, `/reading/new`, `/journal`, `/journal/:id`
   - Wrap protected routes with `ProtectedRoute`
   - Include `AuthProvider` at the root so session changes propagate to the store
