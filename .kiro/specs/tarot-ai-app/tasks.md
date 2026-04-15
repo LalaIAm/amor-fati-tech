@@ -173,7 +173,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - For any completed reading, assert the AI response includes a non-empty `summaryInterpretation` and exactly 3 `journalingPrompts` strings, reflected in `readingSlice` state
 
 - [-] 8. Implement authentication UI
-  - [-] 8.1 Create `src/components/AuthPage.jsx`
+  - [x] 8.1 Create `src/components/AuthPage.jsx`
     - Login form (email + password) dispatching `signIn`
     - Registration form dispatching `signUp`
     - OAuth button dispatching `signInWithOAuth` (e.g. Google) when third-party auth is enabled
@@ -182,7 +182,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Redirect to `/dashboard` on successful auth
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.7_
 
-  - [~] 8.2 Create `src/components/AuthProvider.jsx`
+  - [-] 8.2 Create `src/components/AuthProvider.jsx`
     - Subscribe to `supabase.auth.onAuthStateChange`
     - Dispatch `setSession` on session change; dispatch `clearSession` on sign-out
     - Redirect to `/login` when session expires, preserving intended destination
