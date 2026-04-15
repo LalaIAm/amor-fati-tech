@@ -299,14 +299,14 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Show empty-state prompt when `recentEntries` is empty
     - _Requirements: 10.1, 10.6, 10.7_
 
-- [-] 13. Implement routing and app shell
+- [x] 13. Implement routing and app shell
   - Create `src/App.jsx` with React Router routes: `/login`, `/dashboard`, `/reading/new`, `/journal`, `/journal/:id`
   - Wrap protected routes with `ProtectedRoute`
   - Include `AuthProvider` at the root so session changes propagate to the store
   - Add a minimal nav bar with links to Dashboard, Journal, and a logout button dispatching `signOut`
   - _Requirements: 1.6, 10.1_
 
-- [ ] 14. Implement account deletion
+- [~] 14. Implement account deletion
   - Add a "Delete Account" action in user settings or profile area
   - On confirm: call Supabase to delete the auth user, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via `ON DELETE CASCADE`
   - Dispatch `clearSession` and redirect to `/login` after deletion

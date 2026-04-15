@@ -248,6 +248,37 @@ Renders the last 3 journal entry summaries from `dashboardSlice.recentEntries` o
 
 ---
 
+## Routing & App Shell (`src/App.jsx`)
+
+The root `App` component wires together authentication, navigation, and all routes.
+
+**Routes:**
+
+| Path           | Component                 | Protected |
+| -------------- | ------------------------- | --------- |
+| `/login`       | `AuthPage`                | No        |
+| `/dashboard`   | `DashboardPage`           | Yes       |
+| `/reading/new` | `NewReadingPage`          | Yes       |
+| `/journal`     | `JournalPage`             | Yes       |
+| `/journal/:id` | `JournalEntryPage`        | Yes       |
+| `/` (fallback) | Redirects to `/dashboard` | —         |
+
+Protected routes are wrapped with `ProtectedRoute`, which redirects unauthenticated users to `/login`.
+
+**`NavBar`**
+
+A sticky top navigation bar rendered only when a session is active (`state.auth.session` is non-null).
+
+- Links to `/dashboard` and `/journal` using React Router `NavLink` (active link styled with `--accent` color)
+- "Log out" button dispatches `signOut()` from `authSlice` then redirects to `/login`
+- Hidden entirely on the login page (no session)
+
+**`AuthProvider`**
+
+Wraps the entire app to subscribe to Supabase auth state changes and keep `authSlice` in sync. Dispatches `setSession` on login and `clearSession` on sign-out or session expiry.
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
