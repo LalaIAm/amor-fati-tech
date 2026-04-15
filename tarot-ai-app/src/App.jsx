@@ -14,6 +14,7 @@ import NewReadingPage from "./pages/NewReadingPage.jsx";
 import JournalPage from "./pages/JournalPage.jsx";
 import JournalEntryPage from "./pages/JournalEntryPage.jsx";
 import { signOut } from "./store/authSlice.js";
+import DeleteAccountButton from "./components/DeleteAccountButton.jsx";
 
 /**
  * NavBar — minimal top navigation shown only when the user is authenticated.
@@ -58,6 +59,7 @@ function NavBar() {
             Journal
           </NavLink>
         </div>
+        <DeleteAccountButton />
         <button
           style={styles.logoutBtn}
           onClick={handleLogout}
