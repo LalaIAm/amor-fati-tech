@@ -283,12 +283,12 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Each entry shows date, spread type, intention; clicking navigates to `/journal/:id`
     - _Requirements: 10.2, 10.3_
 
-  - [-] 12.2 Create `src/components/FrequentCards.jsx`
+  - [x] 12.2 Create `src/components/FrequentCards.jsx`
     - Render top 3 cards from `dashboardSlice.frequentCards` with card name and draw count
     - Each card includes `alt` text with name and imageDescription
     - _Requirements: 7.2, 10.5_
 
-  - [ ] 12.3 Create `src/components/PatternInsight.jsx`
+  - [-] 12.3 Create `src/components/PatternInsight.jsx`
     - Render `dashboardSlice.patternInsight` text when `totalReadings >= 5`
     - Hidden when fewer than 5 readings
     - _Requirements: 7.3, 10.4_
