@@ -223,7 +223,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Show error message + retry button when `readingSlice.status === 'error'`
     - _Requirements: 5.3, 5.4, 5.5, 8.1, 8.2_
 
-  - [-] 9.6 Create `src/pages/NewReadingPage.jsx`
+  - [x] 9.6 Create `src/pages/NewReadingPage.jsx`
     - Compose `SpreadSelector → IntentionInput → CardDrawDisplay → InterpretationPanel` in sequence
     - On spread + intention confirmed: dispatch `setDrawnCards` (using deck engine), then dispatch `fetchInterpretation`
     - On interpretation complete: dispatch `saveReading`, then navigate to `/journal/:id`
