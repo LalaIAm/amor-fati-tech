@@ -306,13 +306,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Add a minimal nav bar with links to Dashboard, Journal, and a logout button dispatching `signOut`
   - _Requirements: 1.6, 10.1_
 
-- [-] 14. Implement account deletion
+- [x] 14. Implement account deletion
   - Add a "Delete Account" action in user settings or profile area
   - On confirm: call Supabase to delete the auth user, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via `ON DELETE CASCADE`
   - Dispatch `clearSession` and redirect to `/login` after deletion
   - _Requirements: 9.4_
 
-- [ ] 15. Implement accessibility and responsive layout
+- [~] 15. Implement accessibility and responsive layout
   - [ ] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
     - Ensure all clickable non-button elements have `role`, `tabIndex`, and `onKeyDown` handlers
     - _Requirements: 11.2_

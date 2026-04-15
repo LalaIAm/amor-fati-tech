@@ -248,6 +248,30 @@ Renders the last 3 journal entry summaries from `dashboardSlice.recentEntries` o
 
 ---
 
+## Database Migrations
+
+### `001_initial_schema.sql`
+
+Creates the core tables (`spreads`, `journal_entries`, `drawn_cards`, `pattern_insights`), indexes, and RLS policies. All user-owned tables use `ON DELETE CASCADE` on the `user_id` foreign key so that deleting an `auth.users` row automatically removes all associated data.
+
+### `002_delete_user_function.sql`
+
+Adds a `delete_user()` PostgreSQL RPC function that lets an authenticated user delete their own account server-side.
+
+- Defined with `SECURITY DEFINER` so it can operate on `auth.users` without granting the client direct table access
+- Calls `DELETE FROM auth.users WHERE id = auth.uid()`, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via the constraints in `001_initial_schema.sql`
+- `REVOKE ALL … FROM PUBLIC` + `GRANT EXECUTE … TO authenticated` ensures only signed-in users can invoke it
+
+**Client usage** (via `DeleteAccountButton`):
+
+```js
+await supabase.rpc("delete_user");
+```
+
+After the call succeeds, dispatch `clearSession()` and redirect to `/login`.
+
+---
+
 ## Routing & App Shell (`src/App.jsx`)
 
 The root `App` component wires together authentication, navigation, and all routes.
