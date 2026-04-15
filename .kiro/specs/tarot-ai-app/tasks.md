@@ -143,7 +143,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Create `supabase/seed.sql` inserting `single`, `three-card`, `celtic-cross` rows
     - _Requirements: 3.1_
 
-- [-] 7. Implement Supabase Edge Function for AI interpretation
+- [x] 7. Implement Supabase Edge Function for AI interpretation
   - [x] 7.1 Create `supabase/functions/interpret/index.js`
     - Validate the caller's JWT using Supabase Auth before processing
     - Build the GPT-4o prompt including each card's name, orientation, position label/description, and intention (or general-reading instruction when intention is null/empty); enforce 500-char cap on intention
@@ -154,26 +154,26 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle OpenAI errors; return structured error response for timeout (>30s) / failure
     - _Requirements: 4.2, 4.3, 5.1, 5.2, 5.5, 5.6, 8.1, 9.2_
 
-  - [-] 7.2 Write property test for AI prompt construction (Property 7)
+  - [x] 7.2 Write property test for AI prompt construction (Property 7)
     - **Property 7: AI prompt construction includes all required fields**
     - **Validates: Requirements 4.2, 4.3, 5.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 7: AI prompt construction includes all required fields`
     - Generate arbitrary card/spread/intention combinations; assert prompt string contains card name, orientation, position label, position description, and intention or general-reading instruction
 
-  - [ ] 7.3 Write property test for interpretation word count (Property 8)
+  - [x] 7.3 Write property test for interpretation word count (Property 8)
     - **Property 8: Interpretation word count**
     - **Validates: Requirements 5.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 8: Interpretation word count`
     - For any card interpretation text returned by the AI engine or its mock, assert word count is between 100 and 400 inclusive
 
-  - [ ] 7.4 Write property test for AI response structure (Property 9)
+  - [x] 7.4 Write property test for AI response structure (Property 9)
     - **Property 9: AI response structure**
     - **Validates: Requirements 5.5, 8.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 9: AI response structure`
     - For any completed reading, assert the AI response includes a non-empty `summaryInterpretation` and exactly 3 `journalingPrompts` strings, reflected in `readingSlice` state
 
-- [ ] 8. Implement authentication UI
-  - [ ] 8.1 Create `src/components/AuthPage.jsx`
+- [-] 8. Implement authentication UI
+  - [-] 8.1 Create `src/components/AuthPage.jsx`
     - Login form (email + password) dispatching `signIn`
     - Registration form dispatching `signUp`
     - OAuth button dispatching `signInWithOAuth` (e.g. Google) when third-party auth is enabled
@@ -182,13 +182,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Redirect to `/dashboard` on successful auth
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.7_
 
-  - [ ] 8.2 Create `src/components/AuthProvider.jsx`
+  - [~] 8.2 Create `src/components/AuthProvider.jsx`
     - Subscribe to `supabase.auth.onAuthStateChange`
     - Dispatch `setSession` on session change; dispatch `clearSession` on sign-out
     - Redirect to `/login` when session expires, preserving intended destination
     - _Requirements: 1.4, 1.6_
 
-  - [ ] 8.3 Add protected route wrapper
+  - [~] 8.3 Add protected route wrapper
     - Create `src/components/ProtectedRoute.jsx` that redirects unauthenticated users to `/login`
     - Wrap `/dashboard`, `/reading/new`, `/journal`, `/journal/:id` routes
     - _Requirements: 1.4, 9.3_
