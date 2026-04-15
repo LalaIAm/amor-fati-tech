@@ -193,7 +193,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Wrap `/dashboard`, `/reading/new`, `/journal`, `/journal/:id` routes
     - _Requirements: 1.4, 9.3_
 
-- [-] 9. Implement new reading flow UI
+- [x] 9. Implement new reading flow UI
   - [x] 9.1 Create `src/components/SpreadSelector.jsx`
     - Display all three spreads with name and description
     - On selection dispatch `setSpread`; show position descriptions before reading begins
@@ -229,7 +229,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On interpretation complete: dispatch `saveReading`, then navigate to `/journal/:id`
     - _Requirements: 3.3, 5.1, 6.1_
 
-- [ ] 10. Checkpoint — Ensure all tests pass
+- [~] 10. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 11. Implement journal UI
