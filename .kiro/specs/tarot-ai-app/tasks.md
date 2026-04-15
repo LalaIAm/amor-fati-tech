@@ -229,51 +229,51 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On interpretation complete: dispatch `saveReading`, then navigate to `/journal/:id`
     - _Requirements: 3.3, 5.1, 6.1_
 
-- [~] 10. Checkpoint — Ensure all tests pass
+- [x] 10. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Implement journal UI
-  - [ ] 11.1 Create `src/components/JournalList.jsx`
+- [-] 11. Implement journal UI
+  - [-] 11.1 Create `src/components/JournalList.jsx`
     - Dispatch `fetchJournalEntries` on mount
     - Render chronological list (most recent first) showing date, spread name, and intention per entry
     - Each entry links to `/journal/:id`
     - _Requirements: 6.2, 7.4_
 
-  - [ ] 11.2 Write property test for journal chronological ordering (Property 11)
+  - [~] 11.2 Write property test for journal chronological ordering (Property 11)
     - **Property 11: Journal chronological ordering**
     - **Validates: Requirements 6.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
     - Generate arbitrary sets of journal entries with random `created_at` timestamps; assert `journalSlice.entries` is sorted descending
 
-  - [ ] 11.3 Write property test for journal entry summary fields (Property 13)
+  - [~] 11.3 Write property test for journal entry summary fields (Property 13)
     - **Property 13: Journal entry summary fields**
     - **Validates: Requirements 7.4, 10.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`
     - Generate arbitrary journal entries; render list; assert each row displays date, spread name, and intention or empty-intention indicator
 
-  - [ ] 11.4 Create `src/components/NotesEditor.jsx`
+  - [~] 11.4 Create `src/components/NotesEditor.jsx`
     - Textarea bound to `selectedEntry.userNotes`
     - Auto-save on blur dispatching `updateNotes`
     - _Requirements: 6.4_
 
-  - [ ] 11.5 Create `src/components/JournalingPrompts.jsx`
+  - [~] 11.5 Create `src/components/JournalingPrompts.jsx`
     - Display three prompts from `selectedEntry.journalingPrompts`
     - On prompt click: expand inline textarea pre-populated with prompt text
     - On blur: dispatch `savePromptResponse`
     - _Requirements: 8.2, 8.3, 8.4_
 
-  - [ ] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
+  - [~] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
     - `CardGrid`: renders drawn cards in a grid layout with name, orientation badge, and position label; each card image has `alt` text with name and imageDescription
     - `InterpretationList`: renders the per-card interpretation texts and the summary interpretation
     - _Requirements: 2.5, 3.4, 5.5, 11.3_
 
-  - [ ] 11.7 Create `src/pages/JournalEntryPage.jsx`
+  - [~] 11.7 Create `src/pages/JournalEntryPage.jsx`
     - Dispatch `fetchJournalEntry(id)` on mount
     - Compose `CardGrid`, `InterpretationList`, `JournalingPrompts`, `NotesEditor`
     - Show delete button with confirmation dialog; on confirm dispatch `deleteJournalEntry` then navigate to `/journal`
     - _Requirements: 6.3, 6.4, 6.5_
 
-  - [ ] 11.8 Create `src/pages/JournalPage.jsx`
+  - [~] 11.8 Create `src/pages/JournalPage.jsx`
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 
