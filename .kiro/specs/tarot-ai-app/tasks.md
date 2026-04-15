@@ -267,13 +267,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - `InterpretationList`: renders the per-card interpretation texts and the summary interpretation
     - _Requirements: 2.5, 3.4, 5.5, 11.3_
 
-  - [-] 11.7 Create `src/pages/JournalEntryPage.jsx`
+  - [x] 11.7 Create `src/pages/JournalEntryPage.jsx`
     - Dispatch `fetchJournalEntry(id)` on mount
     - Compose `CardGrid`, `InterpretationList`, `JournalingPrompts`, `NotesEditor`
     - Show delete button with confirmation dialog; on confirm dispatch `deleteJournalEntry` then navigate to `/journal`
     - _Requirements: 6.3, 6.4, 6.5_
 
-  - [~] 11.8 Create `src/pages/JournalPage.jsx`
+  - [-] 11.8 Create `src/pages/JournalPage.jsx`
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 
