@@ -11,8 +11,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -52,6 +52,38 @@
 
 body {
   margin: 0;
+}
+
+/* Card flip-in animation — suppressed when user prefers reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cardFlipIn {
+    from {
+      opacity: 0;
+      transform: rotateY(90deg) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+    }
+  }
+
+  .card-face {
+    animation: cardFlipIn 0.5s ease both;
+  }
+
+  /* Reversed cards flip in then stay rotated */
+  .card-face.card-reversed {
+    animation: cardFlipIn 0.5s ease both;
+    transform: rotate(180deg);
+  }
+}
+
+/* When reduced motion is preferred, no animation at all */
+@media (prefers-reduced-motion: reduce) {
+  .card-face,
+  .card-face.card-reversed {
+    animation: none;
+  }
 }
 
 #root {

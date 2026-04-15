@@ -199,12 +199,12 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On selection dispatch `setSpread`; show position descriptions before reading begins
     - _Requirements: 3.1, 3.2_
 
-  - [-] 9.2 Create `src/components/IntentionInput.jsx`
+  - [x] 9.2 Create `src/components/IntentionInput.jsx`
     - Textarea with `maxLength={500}` character counter
     - On change dispatch `setIntention` (trim whitespace-only to `""`)
     - _Requirements: 4.1_
 
-  - [ ] 9.3 Create `src/components/CardDrawDisplay.jsx`
+  - [-] 9.3 Create `src/components/CardDrawDisplay.jsx`
     - Read `drawnCards` from `readingSlice`
     - Render each card in its spread position with name, orientation badge, and `alt` text containing name + imageDescription
     - Respect `prefers-reduced-motion` for card flip animation
