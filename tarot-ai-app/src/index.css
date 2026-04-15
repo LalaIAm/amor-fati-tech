@@ -54,6 +54,32 @@ body {
   margin: 0;
 }
 
+/* Spinner pulse animation — suppressed when user prefers reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes spinPulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85) rotate(180deg);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @keyframes spinPulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+}
+
 /* Card flip-in animation — suppressed when user prefers reduced motion */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes cardFlipIn {
