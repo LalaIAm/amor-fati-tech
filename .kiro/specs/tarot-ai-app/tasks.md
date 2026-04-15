@@ -245,13 +245,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
     - Generate arbitrary sets of journal entries with random `created_at` timestamps; assert `journalSlice.entries` is sorted descending
 
-  - [-] 11.3 Write property test for journal entry summary fields (Property 13)
+  - [x] 11.3 Write property test for journal entry summary fields (Property 13)
     - **Property 13: Journal entry summary fields**
     - **Validates: Requirements 7.4, 10.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`
     - Generate arbitrary journal entries; render list; assert each row displays date, spread name, and intention or empty-intention indicator
 
-  - [~] 11.4 Create `src/components/NotesEditor.jsx`
+  - [-] 11.4 Create `src/components/NotesEditor.jsx`
     - Textarea bound to `selectedEntry.userNotes`
     - Auto-save on blur dispatching `updateNotes`
     - _Requirements: 6.4_
