@@ -277,7 +277,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 
-- [-] 12. Implement dashboard UI
+- [x] 12. Implement dashboard UI
   - [x] 12.1 Create `src/components/RecentReadings.jsx`
     - Render last 3 journal entry summaries from `dashboardSlice.recentEntries`
     - Each entry shows date, spread type, intention; clicking navigates to `/journal/:id`
@@ -293,7 +293,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Hidden when fewer than 5 readings
     - _Requirements: 7.3, 10.4_
 
-  - [-] 12.4 Create `src/pages/DashboardPage.jsx`
+  - [x] 12.4 Create `src/pages/DashboardPage.jsx`
     - Dispatch `fetchDashboard` on mount
     - Compose `RecentReadings`, `FrequentCards`, `PatternInsight`, and a "Start a New Reading" button navigating to `/reading/new`
     - Show empty-state prompt when `recentEntries` is empty

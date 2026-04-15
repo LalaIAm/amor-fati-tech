@@ -231,6 +231,21 @@ Renders the user's journal entries in reverse-chronological order (most recent f
 
 **CSS classes:** `journal-list`, `journal-list__item`, `journal-list__link`, `journal-list__date`, `journal-list__spread`, `journal-list__intention`
 
+### `RecentReadings` (`src/components/RecentReadings.jsx`)
+
+Renders the last 3 journal entry summaries from `dashboardSlice.recentEntries` on the Dashboard.
+
+**Behavior:**
+
+- Reads `state.dashboard.recentEntries` via the `getRecentEntries` selector
+- Returns `null` (renders nothing) when the entries list is empty or undefined
+- Each entry renders as a `<Link>` to `/journal/:id` displaying:
+  - Formatted date (`month day, year`)
+  - Spread name (falls back to `"—"` if absent)
+  - Intention text, or `"No intention set"` (italicised) when absent/whitespace-only
+- Each link has an `aria-label` summarising the date and spread name for screen readers
+- Layout uses a 3-column CSS Grid: date (160 px fixed) / spread name / intention
+
 ---
 
 ## React + Vite
