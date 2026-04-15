@@ -329,3 +329,57 @@ describe("Property 14: Prompt response round-trip", () => {
     );
   });
 });
+
+// Feature: tarot-ai-app, Property 11: Journal chronological ordering
+import journalReducerOnly, { fetchJournalEntries } from "./journalSlice.js";
+
+describe("Property 11: Journal chronological ordering", () => {
+  /**
+   * Validates: Requirements 6.2
+   *
+   * For any arbitrary set of journal entries with random createdAt timestamps,
+   * dispatching fetchJournalEntries.fulfilled SHALL result in journalSlice.entries
+   * being sorted by createdAt descending (most recent first).
+   */
+  it("entries are sorted by createdAt descending after fetchJournalEntries.fulfilled", () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.record({
+            id: fc.uuid(),
+            createdAt: fc
+              .date({
+                min: new Date("2000-01-01"),
+                max: new Date("2030-12-31"),
+              })
+              .map((d) => d.toISOString()),
+            spreadId: fc.constantFrom("single", "three-card", "celtic-cross"),
+            intention: fc.option(fc.string({ minLength: 1, maxLength: 100 }), {
+              nil: null,
+            }),
+          }),
+          { minLength: 0, maxLength: 20 },
+        ),
+        (entries) => {
+          // Shuffle entries into arbitrary order before dispatching
+          const shuffled = [...entries].sort(() => Math.random() - 0.5);
+
+          const action = fetchJournalEntries.fulfilled(
+            shuffled,
+            "req-id",
+            undefined,
+          );
+          const state = journalReducerOnly(undefined, action);
+
+          // Assert sorted descending by createdAt
+          for (let i = 0; i < state.entries.length - 1; i++) {
+            const a = new Date(state.entries[i].createdAt).getTime();
+            const b = new Date(state.entries[i + 1].createdAt).getTime();
+            expect(a).toBeGreaterThanOrEqual(b);
+          }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+});
