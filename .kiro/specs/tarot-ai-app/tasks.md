@@ -229,107 +229,107 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On interpretation complete: dispatch `saveReading`, then navigate to `/journal/:id`
     - _Requirements: 3.3, 5.1, 6.1_
 
-- [~] 10. Checkpoint — Ensure all tests pass
+- [x] 10. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Implement journal UI
-  - [ ] 11.1 Create `src/components/JournalList.jsx`
+- [x] 11. Implement journal UI
+  - [x] 11.1 Create `src/components/JournalList.jsx`
     - Dispatch `fetchJournalEntries` on mount
     - Render chronological list (most recent first) showing date, spread name, and intention per entry
     - Each entry links to `/journal/:id`
     - _Requirements: 6.2, 7.4_
 
-  - [ ] 11.2 Write property test for journal chronological ordering (Property 11)
+  - [x] 11.2 Write property test for journal chronological ordering (Property 11)
     - **Property 11: Journal chronological ordering**
     - **Validates: Requirements 6.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
     - Generate arbitrary sets of journal entries with random `created_at` timestamps; assert `journalSlice.entries` is sorted descending
 
-  - [ ] 11.3 Write property test for journal entry summary fields (Property 13)
+  - [x] 11.3 Write property test for journal entry summary fields (Property 13)
     - **Property 13: Journal entry summary fields**
     - **Validates: Requirements 7.4, 10.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`
     - Generate arbitrary journal entries; render list; assert each row displays date, spread name, and intention or empty-intention indicator
 
-  - [ ] 11.4 Create `src/components/NotesEditor.jsx`
+  - [x] 11.4 Create `src/components/NotesEditor.jsx`
     - Textarea bound to `selectedEntry.userNotes`
     - Auto-save on blur dispatching `updateNotes`
     - _Requirements: 6.4_
 
-  - [ ] 11.5 Create `src/components/JournalingPrompts.jsx`
+  - [x] 11.5 Create `src/components/JournalingPrompts.jsx`
     - Display three prompts from `selectedEntry.journalingPrompts`
     - On prompt click: expand inline textarea pre-populated with prompt text
     - On blur: dispatch `savePromptResponse`
     - _Requirements: 8.2, 8.3, 8.4_
 
-  - [ ] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
+  - [x] 11.6 Create `src/components/CardGrid.jsx` and `src/components/InterpretationList.jsx`
     - `CardGrid`: renders drawn cards in a grid layout with name, orientation badge, and position label; each card image has `alt` text with name and imageDescription
     - `InterpretationList`: renders the per-card interpretation texts and the summary interpretation
     - _Requirements: 2.5, 3.4, 5.5, 11.3_
 
-  - [ ] 11.7 Create `src/pages/JournalEntryPage.jsx`
+  - [x] 11.7 Create `src/pages/JournalEntryPage.jsx`
     - Dispatch `fetchJournalEntry(id)` on mount
     - Compose `CardGrid`, `InterpretationList`, `JournalingPrompts`, `NotesEditor`
     - Show delete button with confirmation dialog; on confirm dispatch `deleteJournalEntry` then navigate to `/journal`
     - _Requirements: 6.3, 6.4, 6.5_
 
-  - [ ] 11.8 Create `src/pages/JournalPage.jsx`
+  - [x] 11.8 Create `src/pages/JournalPage.jsx`
     - Render `JournalList` and `PatternInsightBanner` (reads from `dashboardSlice.patternInsight`)
     - _Requirements: 6.2, 7.3_
 
-- [ ] 12. Implement dashboard UI
-  - [ ] 12.1 Create `src/components/RecentReadings.jsx`
+- [x] 12. Implement dashboard UI
+  - [x] 12.1 Create `src/components/RecentReadings.jsx`
     - Render last 3 journal entry summaries from `dashboardSlice.recentEntries`
     - Each entry shows date, spread type, intention; clicking navigates to `/journal/:id`
     - _Requirements: 10.2, 10.3_
 
-  - [ ] 12.2 Create `src/components/FrequentCards.jsx`
+  - [x] 12.2 Create `src/components/FrequentCards.jsx`
     - Render top 3 cards from `dashboardSlice.frequentCards` with card name and draw count
     - Each card includes `alt` text with name and imageDescription
     - _Requirements: 7.2, 10.5_
 
-  - [ ] 12.3 Create `src/components/PatternInsight.jsx`
+  - [x] 12.3 Create `src/components/PatternInsight.jsx`
     - Render `dashboardSlice.patternInsight` text when `totalReadings >= 5`
     - Hidden when fewer than 5 readings
     - _Requirements: 7.3, 10.4_
 
-  - [ ] 12.4 Create `src/pages/DashboardPage.jsx`
+  - [x] 12.4 Create `src/pages/DashboardPage.jsx`
     - Dispatch `fetchDashboard` on mount
     - Compose `RecentReadings`, `FrequentCards`, `PatternInsight`, and a "Start a New Reading" button navigating to `/reading/new`
     - Show empty-state prompt when `recentEntries` is empty
     - _Requirements: 10.1, 10.6, 10.7_
 
-- [ ] 13. Implement routing and app shell
+- [x] 13. Implement routing and app shell
   - Create `src/App.jsx` with React Router routes: `/login`, `/dashboard`, `/reading/new`, `/journal`, `/journal/:id`
   - Wrap protected routes with `ProtectedRoute`
   - Include `AuthProvider` at the root so session changes propagate to the store
   - Add a minimal nav bar with links to Dashboard, Journal, and a logout button dispatching `signOut`
   - _Requirements: 1.6, 10.1_
 
-- [ ] 14. Implement account deletion
+- [x] 14. Implement account deletion
   - Add a "Delete Account" action in user settings or profile area
   - On confirm: call Supabase to delete the auth user, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via `ON DELETE CASCADE`
   - Dispatch `clearSession` and redirect to `/login` after deletion
   - _Requirements: 9.4_
 
-- [ ] 15. Implement accessibility and responsive layout
-  - [ ] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
+- [x] 15. Implement accessibility and responsive layout
+  - [x] 15.1 Add keyboard navigation to all interactive elements (spread cards, journal entries, prompts)
     - Ensure all clickable non-button elements have `role`, `tabIndex`, and `onKeyDown` handlers
     - _Requirements: 11.2_
 
-  - [ ] 15.2 Add `prefers-color-scheme` dark/light mode support
+  - [x] 15.2 Add `prefers-color-scheme` dark/light mode support
     - Use CSS custom properties for theme tokens; apply `@media (prefers-color-scheme: dark)` overrides
     - _Requirements: 11.5_
 
-  - [ ] 15.3 Add responsive CSS ensuring layout works from 320px to 2560px
+  - [x] 15.3 Add responsive CSS ensuring layout works from 320px to 2560px
     - Use CSS Grid/Flexbox; test breakpoints at 320px, 768px, 1280px, 2560px
     - _Requirements: 11.1_
 
-  - [ ] 15.4 Add `prefers-reduced-motion` media query to disable card animations
+  - [x] 15.4 Add `prefers-reduced-motion` media query to disable card animations
     - Wrap all CSS animation/transition rules with `@media (prefers-reduced-motion: no-preference)`
     - _Requirements: 11.4_
 
-- [ ] 16. Final checkpoint — Ensure all tests pass
+- [x] 16. Final checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

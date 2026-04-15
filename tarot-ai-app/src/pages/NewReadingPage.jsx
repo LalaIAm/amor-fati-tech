@@ -184,7 +184,7 @@ const styles = {
     flexDirection: "column",
   },
   stepNav: {
-    padding: "20px 24px 0",
+    padding: "clamp(12px, 3vw, 20px) clamp(12px, 4vw, 24px) 0",
     maxWidth: "720px",
     margin: "0 auto",
     width: "100%",
@@ -212,7 +212,7 @@ const styles = {
     fontWeight: 600,
   },
   stepItemDone: {
-    color: "#16a34a",
+    color: "var(--success)",
   },
   stepDot: {
     width: "22px",

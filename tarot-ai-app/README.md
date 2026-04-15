@@ -214,6 +214,123 @@ Renders the spread selection step of the new reading flow. Displays all three bu
 
 ---
 
+### `JournalList` (`src/components/JournalList.jsx`)
+
+Renders the user's journal entries in reverse-chronological order (most recent first).
+
+**Behavior:**
+
+- Dispatches `fetchJournalEntries()` from `journalSlice` on mount
+- Shows a loading message while `status === 'loading'`
+- Shows an error message (including the error string) when `status === 'failed'`
+- Shows an empty-state prompt when there are no entries
+- Each entry renders as a `<Link>` to `/journal/:id` displaying:
+  - Formatted date (`month day, year`)
+  - Spread name
+  - Intention text, or `"No intention set"` when absent/whitespace-only
+
+**CSS classes:** `journal-list`, `journal-list__item`, `journal-list__link`, `journal-list__date`, `journal-list__spread`, `journal-list__intention`
+
+### `RecentReadings` (`src/components/RecentReadings.jsx`)
+
+Renders the last 3 journal entry summaries from `dashboardSlice.recentEntries` on the Dashboard.
+
+**Behavior:**
+
+- Reads `state.dashboard.recentEntries` via the `getRecentEntries` selector
+- Returns `null` (renders nothing) when the entries list is empty or undefined
+- Each entry renders as a `<Link>` to `/journal/:id` displaying:
+  - Formatted date (`month day, year`)
+  - Spread name (falls back to `"—"` if absent)
+  - Intention text, or `"No intention set"` (italicised) when absent/whitespace-only
+- Each link has an `aria-label` summarising the date and spread name for screen readers
+- Layout uses a 3-column CSS Grid: date (160 px fixed) / spread name / intention
+
+---
+
+## Theming & CSS Custom Properties (`src/index.css`)
+
+All visual tokens are defined as CSS custom properties on `:root` and overridden in `@media (prefers-color-scheme: dark)`.
+
+| Variable           | Default value                | Purpose                                |
+| ------------------ | ---------------------------- | -------------------------------------- |
+| `--bg`             | `#faf8ff`                    | Page background                        |
+| `--surface`        | `#f0ecfa`                    | Elevated surface (cards, panels)       |
+| `--card-bg`        | `rgba(170, 59, 255, 0.06)`   | Tarot card tile background             |
+| `--text`           | `#6b6375`                    | Body text                              |
+| `--text-h`         | `#08060d`                    | Heading text                           |
+| `--border`         | `#e5e4e7`                    | Default border                         |
+| `--code-bg`        | `#f4f3ec`                    | Inline code background                 |
+| `--accent`         | `#aa3bff`                    | Primary accent (buttons, links, focus) |
+| `--accent-bg`      | `rgba(170, 59, 255, 0.1)`    | Accent tint background                 |
+| `--accent-border`  | `rgba(170, 59, 255, 0.5)`    | Accent border                          |
+| `--btn-text`       | `#ffffff`                    | Text on filled accent buttons          |
+| `--social-bg`      | `rgba(244, 243, 236, 0.5)`   | OAuth / social button background       |
+| `--error`          | `#dc2626`                    | Error text                             |
+| `--error-bg`       | `rgba(220, 38, 38, 0.06)`    | Error message background               |
+| `--error-border`   | `rgba(220, 38, 38, 0.4)`     | Error message border                   |
+| `--success`        | `#16a34a`                    | Success text                           |
+| `--success-bg`     | `rgba(22, 163, 74, 0.08)`    | Success message background             |
+| `--success-border` | `#16a34a`                    | Success message border                 |
+| `--shadow`         | box-shadow (10px/6px offset) | Elevation shadow                       |
+
+---
+
+## Database Migrations
+
+### `001_initial_schema.sql`
+
+Creates the core tables (`spreads`, `journal_entries`, `drawn_cards`, `pattern_insights`), indexes, and RLS policies. All user-owned tables use `ON DELETE CASCADE` on the `user_id` foreign key so that deleting an `auth.users` row automatically removes all associated data.
+
+### `002_delete_user_function.sql`
+
+Adds a `delete_user()` PostgreSQL RPC function that lets an authenticated user delete their own account server-side.
+
+- Defined with `SECURITY DEFINER` so it can operate on `auth.users` without granting the client direct table access
+- Calls `DELETE FROM auth.users WHERE id = auth.uid()`, which cascades to all `journal_entries`, `drawn_cards`, and `pattern_insights` rows via the constraints in `001_initial_schema.sql`
+- `REVOKE ALL … FROM PUBLIC` + `GRANT EXECUTE … TO authenticated` ensures only signed-in users can invoke it
+
+**Client usage** (via `DeleteAccountButton`):
+
+```js
+await supabase.rpc("delete_user");
+```
+
+After the call succeeds, dispatch `clearSession()` and redirect to `/login`.
+
+---
+
+## Routing & App Shell (`src/App.jsx`)
+
+The root `App` component wires together authentication, navigation, and all routes.
+
+**Routes:**
+
+| Path           | Component                 | Protected |
+| -------------- | ------------------------- | --------- |
+| `/login`       | `AuthPage`                | No        |
+| `/dashboard`   | `DashboardPage`           | Yes       |
+| `/reading/new` | `NewReadingPage`          | Yes       |
+| `/journal`     | `JournalPage`             | Yes       |
+| `/journal/:id` | `JournalEntryPage`        | Yes       |
+| `/` (fallback) | Redirects to `/dashboard` | —         |
+
+Protected routes are wrapped with `ProtectedRoute`, which redirects unauthenticated users to `/login`.
+
+**`NavBar`**
+
+A sticky top navigation bar rendered only when a session is active (`state.auth.session` is non-null).
+
+- Links to `/dashboard` and `/journal` using React Router `NavLink` (active link styled with `--accent` color)
+- "Log out" button dispatches `signOut()` from `authSlice` then redirects to `/login`
+- Hidden entirely on the login page (no session)
+
+**`AuthProvider`**
+
+Wraps the entire app to subscribe to Supabase auth state changes and keep `authSlice` in sync. Dispatches `setSession` on login and `clearSession` on sign-out or session expiry.
+
+---
+
 ## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -124,10 +124,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    /* Animation applied via CSS class; suppressed by prefers-reduced-motion */
-    animationName: "cardFlipIn",
-    animationDuration: "0.5s",
-    animationFillMode: "both",
+    /* Animation is applied via the .card-face CSS class in index.css,
+       which is wrapped in prefers-reduced-motion: no-preference */
   },
   cardFaceReversed: {
     transform: "rotate(180deg)",
@@ -171,14 +169,14 @@ const styles = {
     border: "1px solid",
   },
   badgeUpright: {
-    color: "#16a34a",
-    borderColor: "#16a34a",
-    background: "rgba(22,163,74,0.08)",
+    color: "var(--success)",
+    borderColor: "var(--success-border)",
+    background: "var(--success-bg)",
   },
   badgeReversed: {
-    color: "#dc2626",
-    borderColor: "#dc2626",
-    background: "rgba(220,38,38,0.08)",
+    color: "var(--error)",
+    borderColor: "var(--error)",
+    background: "var(--error-bg)",
   },
   cardNameLabel: {
     margin: 0,
