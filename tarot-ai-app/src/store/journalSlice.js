@@ -151,7 +151,9 @@ const journalSlice = createSlice({
       })
       .addCase(fetchJournalEntries.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.entries = action.payload;
+        state.entries = [...action.payload].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
       })
       .addCase(fetchJournalEntries.rejected, (state, action) => {
         state.status = "failed";

@@ -233,13 +233,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Ensure all tests pass, ask the user if questions arise.
 
 - [-] 11. Implement journal UI
-  - [-] 11.1 Create `src/components/JournalList.jsx`
+  - [x] 11.1 Create `src/components/JournalList.jsx`
     - Dispatch `fetchJournalEntries` on mount
     - Render chronological list (most recent first) showing date, spread name, and intention per entry
     - Each entry links to `/journal/:id`
     - _Requirements: 6.2, 7.4_
 
-  - [~] 11.2 Write property test for journal chronological ordering (Property 11)
+  - [-] 11.2 Write property test for journal chronological ordering (Property 11)
     - **Property 11: Journal chronological ordering**
     - **Validates: Requirements 6.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
