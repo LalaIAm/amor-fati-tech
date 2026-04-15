@@ -182,13 +182,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Redirect to `/dashboard` on successful auth
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.7_
 
-  - [-] 8.2 Create `src/components/AuthProvider.jsx`
+  - [x] 8.2 Create `src/components/AuthProvider.jsx`
     - Subscribe to `supabase.auth.onAuthStateChange`
     - Dispatch `setSession` on session change; dispatch `clearSession` on sign-out
     - Redirect to `/login` when session expires, preserving intended destination
     - _Requirements: 1.4, 1.6_
 
-  - [~] 8.3 Add protected route wrapper
+  - [-] 8.3 Add protected route wrapper
     - Create `src/components/ProtectedRoute.jsx` that redirects unauthenticated users to `/login`
     - Wrap `/dashboard`, `/reading/new`, `/journal`, `/journal/:id` routes
     - _Requirements: 1.4, 9.3_
