@@ -2,14 +2,13 @@
 
 import { describe, it, expect, vi } from "vitest";
 import * as fc from "fast-check";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter } from "react-router-dom";
-import JournalList from "./JournalList.jsx";
 
 // ---------------------------------------------------------------------------
-// Mock supabase so journalSlice can be imported without real env vars
+// Mock supabase so journalSlice can be imported without real env vars.
 // ---------------------------------------------------------------------------
 vi.mock("../supabaseClient.js", () => ({
   supabase: {
@@ -35,7 +34,21 @@ vi.mock("../supabaseClient.js", () => ({
   },
 }));
 
+// ---------------------------------------------------------------------------
+// Mock fetchJournalEntries so it is a no-op thunk that never fires network
+// calls and never overwrites the preloaded store state.
+// ---------------------------------------------------------------------------
+vi.mock("../store/journalSlice.js", async (importOriginal) => {
+  const actual = await importOriginal();
+  const noopThunk = () => () => {};
+  return {
+    ...actual,
+    fetchJournalEntries: noopThunk,
+  };
+});
+
 import journalReducer from "../store/journalSlice.js";
+import JournalList from "./JournalList.jsx";
 
 // ---------------------------------------------------------------------------
 // Arbitraries
@@ -140,11 +153,12 @@ describe("Property 13: Journal entry summary fields", () => {
             const intentionEl = item.querySelector(".journal-list__intention");
             expect(intentionEl).not.toBeNull();
 
-            const hasIntention =
-              entry.intention !== null && entry.intention.trim().length > 0;
+            // The component renders intention?.trim() || "No intention set"
+            const trimmedIntention = entry.intention?.trim() ?? "";
+            const hasIntention = trimmedIntention.length > 0;
 
             if (hasIntention) {
-              expect(intentionEl.textContent).toBe(entry.intention);
+              expect(intentionEl.textContent).toBe(trimmedIntention);
             } else {
               expect(intentionEl.textContent).toBe("No intention set");
             }
