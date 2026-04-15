@@ -204,13 +204,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - On change dispatch `setIntention` (trim whitespace-only to `""`)
     - _Requirements: 4.1_
 
-  - [-] 9.3 Create `src/components/CardDrawDisplay.jsx`
+  - [x] 9.3 Create `src/components/CardDrawDisplay.jsx`
     - Read `drawnCards` from `readingSlice`
     - Render each card in its spread position with name, orientation badge, and `alt` text containing name + imageDescription
     - Respect `prefers-reduced-motion` for card flip animation
     - _Requirements: 2.5, 3.4, 11.3, 11.4_
 
-  - [ ] 9.4 Write property test for card alt text present (Property 16)
+  - [-] 9.4 Write property test for card alt text present (Property 16)
     - **Property 16: Card alt text present**
     - **Validates: Requirements 11.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 16: Card alt text present`
