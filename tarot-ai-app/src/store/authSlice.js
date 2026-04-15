@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { supabase } from "../supabaseClient.js";
 
 /**
  * @typedef {Object} AuthState
- * @property {Object|null} session
- * @property {Object|null} user
+ * @property {Object|null} session - Supabase session object
+ * @property {Object|null} user - Supabase user object
  * @property {'idle'|'loading'|'succeeded'|'failed'} status
  * @property {string|null} error
  */
@@ -18,20 +19,40 @@ const initialState = {
 export const signIn = createAsyncThunk(
   "auth/signIn",
   async ({ email, password }, { rejectWithValue }) => {
-    // TODO: calls supabase.auth.signInWithPassword(...)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) return rejectWithValue(error.message);
+    return data;
   },
 );
 
 export const signUp = createAsyncThunk(
   "auth/signUp",
   async ({ email, password }, { rejectWithValue }) => {
-    // TODO: calls supabase.auth.signUp(...)
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) return rejectWithValue(error.message);
+    return data;
   },
 );
 
-export const signOut = createAsyncThunk("auth/signOut", async () => {
-  // TODO: calls supabase.auth.signOut()
-});
+export const signOut = createAsyncThunk(
+  "auth/signOut",
+  async (_, { rejectWithValue }) => {
+    const { error } = await supabase.auth.signOut();
+    if (error) return rejectWithValue(error.message);
+  },
+);
+
+export const signInWithOAuth = createAsyncThunk(
+  "auth/signInWithOAuth",
+  async ({ provider }, { rejectWithValue }) => {
+    const { data, error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) return rejectWithValue(error.message);
+    return data;
+  },
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -47,7 +68,68 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // handle pending/fulfilled/rejected for signIn, signUp, signOut
+    // signIn
+    builder
+      .addCase(signIn.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(signIn.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.session = action.payload.session;
+        state.user = action.payload.user;
+      })
+      .addCase(signIn.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // signUp
+    builder
+      .addCase(signUp.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.session = action.payload.session;
+        state.user = action.payload.user;
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // signOut
+    builder
+      .addCase(signOut.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(signOut.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.session = null;
+        state.user = null;
+      })
+      .addCase(signOut.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
+
+    // signInWithOAuth
+    builder
+      .addCase(signInWithOAuth.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(signInWithOAuth.fulfilled, (state) => {
+        // OAuth redirects the browser; session is set later via setSession
+        state.status = "succeeded";
+      })
+      .addCase(signInWithOAuth.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 

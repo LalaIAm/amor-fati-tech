@@ -16,43 +16,43 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - _Requirements: 1.1, 9.2_
 
 - [ ] 2. Implement static deck data and deck engine
-  - [ ] 2.1 Create `src/data/deck.js` with all 78 tarot cards as a plain JS array
+  - [x] 2.1 Create `src/data/deck.js` with all 78 tarot cards as a plain JS array
     - Each card object: `{ id, name, arcana, suit, imageDescription, uprightKeywords, reversedKeywords }`
     - 22 Major Arcana (id 0–21), 56 Minor Arcana (id 22–77) across four suits
     - _Requirements: 2.1, 2.2_
 
-  - [ ]\* 2.2 Write property test for deck integrity (Property 1)
+  - [x] 2.2 Write property test for deck integrity (Property 1)
     - **Property 1: Deck integrity**
     - **Validates: Requirements 2.1, 2.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 1: Deck integrity`
     - Assert exactly 78 cards, 22 Major Arcana, 56 Minor Arcana, no duplicate ids, all required fields non-empty
 
-  - [ ] 2.3 Create `src/engine/deck.js` with `createDeck`, `shuffle`, `draw`, `assignReversed`
+  - [x] 2.3 Create `src/engine/deck.js` with `createDeck`, `shuffle`, `draw`, `assignReversed`
     - `createDeck()` returns a copy of the static deck array
     - `shuffle(deck)` implements Fisher-Yates, returns a new array (does not mutate input)
     - `draw(shuffledDeck, count, positions)` returns `DrawnCard[]` with `assignReversed` applied to each
     - `assignReversed(card)` returns `true` with 50% probability
     - _Requirements: 2.3, 2.4_
 
-  - [ ]\* 2.4 Write property test for shuffle permutation (Property 2)
+  - [x] 2.4 Write property test for shuffle permutation (Property 2)
     - **Property 2: Shuffle is a permutation**
     - **Validates: Requirements 2.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 2: Shuffle is a permutation`
     - Assert output contains same card ids as input, same length, no additions or omissions
 
-  - [ ]\* 2.5 Write property test for reversed orientation distribution (Property 3)
+  - [x] 2.5 Write property test for reversed orientation distribution (Property 3)
     - **Property 3: Reversed orientation distribution**
     - **Validates: Requirements 2.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 3: Reversed orientation distribution`
     - Draw ≥1000 cards, assert proportion reversed is 0.5 ± 0.05
 
-  - [ ]\* 2.6 Write property test for draw count matches spread (Property 4)
+  - [x] 2.6 Write property test for draw count matches spread (Property 4)
     - **Property 4: Draw count matches spread**
     - **Validates: Requirements 2.3, 3.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 4: Draw count matches spread`
     - For arbitrary N (1–10), assert `draw` returns exactly N cards with no repeated card ids
 
-- [ ] 3. Implement spread definitions
+- [x] 3. Implement spread definitions
   - Create `src/data/spreads.js` defining the three built-in spreads as plain JS objects
     - `single`: 1 position ("Present")
     - `three-card`: 3 positions (Past / Present / Future)
@@ -60,86 +60,86 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
   - Export a `getSpreads()` helper returning all three and a `getSpreadById(id)` helper
   - _Requirements: 3.1, 3.2_
 
-- [ ] 4. Implement Redux store slices
-  - [ ] 4.1 Implement `src/store/authSlice.js`
+- [x] 4. Implement Redux store slices
+  - [x] 4.1 Implement `src/store/authSlice.js`
     - `signIn`, `signUp`, `signOut` async thunks calling Supabase Auth
     - `signInWithOAuth` async thunk calling `supabase.auth.signInWithOAuth` for third-party providers
     - `setSession` and `clearSession` synchronous reducers
     - Handle `pending/fulfilled/rejected` for all thunks; set `status` and `error` fields
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ]\* 4.2 Write property test for auth round-trip (Property 5)
+  - [x] 4.2 Write property test for auth round-trip (Property 5)
     - **Property 5: Auth round-trip**
     - **Validates: Requirements 1.2, 1.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 5: Auth round-trip`
     - For any valid email and password ≥8 chars, registering then signing in SHALL produce a non-null session and user in `authSlice`
 
-  - [ ]\* 4.3 Write property test for auth error conditions (Property 6)
+  - [x] 4.3 Write property test for auth error conditions (Property 6)
     - **Property 6: Auth error conditions**
     - **Validates: Requirements 1.3, 1.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 6: Auth error conditions`
     - Duplicate email registration SHALL set `authSlice.status` to `'failed'`; invalid credentials SHALL NOT set a session
 
-  - [ ] 4.4 Implement `src/store/readingSlice.js`
+  - [x] 4.4 Implement `src/store/readingSlice.js`
     - `setSpread`, `setIntention` (normalize whitespace-only to `""`), `setDrawnCards`, `appendInterpretation`, `resetReading` reducers
     - `fetchInterpretation` async thunk: calls Supabase Edge Function `/interpret` with streaming, dispatches `appendInterpretation` per chunk; passes `previousInterpretationIds` to enforce distinct interpretations
     - `saveReading` async thunk: writes `journal_entries` + `drawn_cards` rows to Supabase
     - Status transitions: `idle → drawing → interpreting → saving → done | error`
     - _Requirements: 4.1, 4.2, 4.3, 5.1, 5.3, 5.4, 5.5, 5.6_
 
-  - [ ]\* 4.5 Write property test for whitespace intention normalization (Property 17)
+  - [x] 4.5 Write property test for whitespace intention normalization (Property 17)
     - **Property 17: Whitespace intention treated as absent**
     - **Validates: Requirements 4.1, 4.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 17: Whitespace intention treated as absent`
     - Generate arbitrary whitespace-only strings; assert `readingSlice.intention` is normalized to `""`
 
-  - [ ] 4.6 Implement `src/store/journalSlice.js`
+  - [x] 4.6 Implement `src/store/journalSlice.js`
     - `fetchJournalEntries`, `fetchJournalEntry`, `updateNotes`, `savePromptResponse`, `deleteJournalEntry` async thunks
     - `selectEntry` synchronous reducer
     - Handle all thunk lifecycle states
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 8.4_
 
-  - [ ]\* 4.7 Write property test for journal entry round-trip (Property 10)
+  - [x] 4.7 Write property test for journal entry round-trip (Property 10)
     - **Property 10: Journal entry round-trip**
     - **Validates: Requirements 4.4, 6.1, 6.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 10: Journal entry round-trip`
     - For any completed reading, saving then retrieving the journal entry SHALL return identical spread id, card ids, orientations, interpretation texts, and intention
 
-  - [ ]\* 4.8 Write property test for prompt response round-trip (Property 14)
+  - [x] 4.8 Write property test for prompt response round-trip (Property 14)
     - **Property 14: Prompt response round-trip**
     - **Validates: Requirements 8.4**
     - Tag comment: `// Feature: tarot-ai-app, Property 14: Prompt response round-trip`
     - For any user response to a journaling prompt, saving then retrieving the entry SHALL return the same response text at the same prompt index in `journalSlice.selectedEntry.promptResponses`
 
-  - [ ] 4.9 Implement `src/store/dashboardSlice.js`
+  - [x] 4.9 Implement `src/store/dashboardSlice.js`
     - `fetchDashboard` async thunk: queries recent 3 entries, aggregates card frequencies (top 3), fetches latest pattern insight
     - Expose `getFrequentCards()` and `getRecentEntries()` selector helpers
     - _Requirements: 7.1, 7.2, 10.1, 10.2, 10.4, 10.5, 10.6_
 
-  - [ ]\* 4.10 Write property test for card frequency counts and top-3 display (Property 12)
+  - [x] 4.10 Write property test for card frequency counts and top-3 display (Property 12)
     - **Property 12: Card frequency counts and top-3 display**
     - **Validates: Requirements 7.1, 7.2, 10.5**
     - Tag comment: `// Feature: tarot-ai-app, Property 12: Card frequency counts and top-3 display`
     - Generate arbitrary reading histories; assert frequency counts match drawn_cards rows and top-3 are correct
 
-- [ ] 5. Checkpoint — Ensure all tests pass
+- [x] 5. Checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Implement Supabase database schema and RLS
-  - [ ] 6.1 Create `supabase/migrations/001_initial_schema.sql`
+- [x] 6. Implement Supabase database schema and RLS
+  - [x] 6.1 Create `supabase/migrations/001_initial_schema.sql`
     - Tables: `spreads`, `journal_entries`, `drawn_cards`, `pattern_insights` per design schema
     - All indexes from design document
     - Enable RLS on `journal_entries`, `drawn_cards`, `pattern_insights`
     - Add the three RLS policies from the design document
     - _Requirements: 9.1, 9.3_
 
-  - [ ]\* 6.2 Write property test for user data isolation (Property 15)
+  - [x] 6.2 Write property test for user data isolation (Property 15)
     - **Property 15: User data isolation**
     - **Validates: Requirements 9.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 15: User data isolation`
     - For any two distinct authenticated users A and B, all queries in user A's session SHALL return zero rows belonging to user B; use Supabase local emulator with two test users
 
-  - [ ] 6.3 Seed `spreads` table with the three built-in spread rows
+  - [x] 6.3 Seed `spreads` table with the three built-in spread rows
     - Create `supabase/seed.sql` inserting `single`, `three-card`, `celtic-cross` rows
     - _Requirements: 3.1_
 
@@ -154,19 +154,19 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Handle OpenAI errors; return structured error response for timeout (>30s) / failure
     - _Requirements: 4.2, 4.3, 5.1, 5.2, 5.5, 5.6, 8.1, 9.2_
 
-  - [ ]\* 7.2 Write property test for AI prompt construction (Property 7)
+  - [ ] 7.2 Write property test for AI prompt construction (Property 7)
     - **Property 7: AI prompt construction includes all required fields**
     - **Validates: Requirements 4.2, 4.3, 5.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 7: AI prompt construction includes all required fields`
     - Generate arbitrary card/spread/intention combinations; assert prompt string contains card name, orientation, position label, position description, and intention or general-reading instruction
 
-  - [ ]\* 7.3 Write property test for interpretation word count (Property 8)
+  - [ ] 7.3 Write property test for interpretation word count (Property 8)
     - **Property 8: Interpretation word count**
     - **Validates: Requirements 5.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 8: Interpretation word count`
     - For any card interpretation text returned by the AI engine or its mock, assert word count is between 100 and 400 inclusive
 
-  - [ ]\* 7.4 Write property test for AI response structure (Property 9)
+  - [ ] 7.4 Write property test for AI response structure (Property 9)
     - **Property 9: AI response structure**
     - **Validates: Requirements 5.5, 8.1**
     - Tag comment: `// Feature: tarot-ai-app, Property 9: AI response structure`
@@ -210,7 +210,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Respect `prefers-reduced-motion` for card flip animation
     - _Requirements: 2.5, 3.4, 11.3, 11.4_
 
-  - [ ]\* 9.4 Write property test for card alt text present (Property 16)
+  - [ ] 9.4 Write property test for card alt text present (Property 16)
     - **Property 16: Card alt text present**
     - **Validates: Requirements 11.3**
     - Tag comment: `// Feature: tarot-ai-app, Property 16: Card alt text present`
@@ -239,13 +239,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Each entry links to `/journal/:id`
     - _Requirements: 6.2, 7.4_
 
-  - [ ]\* 11.2 Write property test for journal chronological ordering (Property 11)
+  - [ ] 11.2 Write property test for journal chronological ordering (Property 11)
     - **Property 11: Journal chronological ordering**
     - **Validates: Requirements 6.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 11: Journal chronological ordering`
     - Generate arbitrary sets of journal entries with random `created_at` timestamps; assert `journalSlice.entries` is sorted descending
 
-  - [ ]\* 11.3 Write property test for journal entry summary fields (Property 13)
+  - [ ] 11.3 Write property test for journal entry summary fields (Property 13)
     - **Property 13: Journal entry summary fields**
     - **Validates: Requirements 7.4, 10.2**
     - Tag comment: `// Feature: tarot-ai-app, Property 13: Journal entry summary fields`
