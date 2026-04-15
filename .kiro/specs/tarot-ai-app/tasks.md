@@ -172,7 +172,7 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Tag comment: `// Feature: tarot-ai-app, Property 9: AI response structure`
     - For any completed reading, assert the AI response includes a non-empty `summaryInterpretation` and exactly 3 `journalingPrompts` strings, reflected in `readingSlice` state
 
-- [-] 8. Implement authentication UI
+- [x] 8. Implement authentication UI
   - [x] 8.1 Create `src/components/AuthPage.jsx`
     - Login form (email + password) dispatching `signIn`
     - Registration form dispatching `signUp`
@@ -188,13 +188,13 @@ Implement the Tarot AI App as a React + JavaScript SPA using Vite, Redux Toolkit
     - Redirect to `/login` when session expires, preserving intended destination
     - _Requirements: 1.4, 1.6_
 
-  - [-] 8.3 Add protected route wrapper
+  - [x] 8.3 Add protected route wrapper
     - Create `src/components/ProtectedRoute.jsx` that redirects unauthenticated users to `/login`
     - Wrap `/dashboard`, `/reading/new`, `/journal`, `/journal/:id` routes
     - _Requirements: 1.4, 9.3_
 
-- [ ] 9. Implement new reading flow UI
-  - [ ] 9.1 Create `src/components/SpreadSelector.jsx`
+- [-] 9. Implement new reading flow UI
+  - [-] 9.1 Create `src/components/SpreadSelector.jsx`
     - Display all three spreads with name and description
     - On selection dispatch `setSpread`; show position descriptions before reading begins
     - _Requirements: 3.1, 3.2_
